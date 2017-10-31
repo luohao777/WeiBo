@@ -4,13 +4,15 @@
       <slide-bar/>
       <button @click="test" >获取数据</button>
       <router-view></router-view>
-
+      <login-in/>
   </div>
 </template>
 
 <script>
 import topBar from "@/components/topBar";
 import slideBar from '@/components/slideBar/slideBar'
+import loginIn from '@/pages/LoginIn/loginIn'
+
 
 export default {
   
@@ -24,8 +26,9 @@ export default {
     }
   },
   components: {
-    topBar,slideBar
+    topBar,slideBar,loginIn
   },
+  
   name: "app"
 };
 </script>

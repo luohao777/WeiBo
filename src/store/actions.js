@@ -3,6 +3,13 @@ import * as api from '@/api'
 import jsonp from 'jsonp'
 
 export default {
+    loginIn({ commit }){
+
+        let appKey = api.APP_KEY.appKey 
+        let redurecet_uri = api.APP_KEY.redirect_uri 
+        let url = `https://api.weibo.com/oauth2/authorize?client_id=${appKey}&redirect_uri=${redurecet_uri}`
+        console.log(url);
+    },
     addTimeLine({ commit }) {
         // 0为备用用户
         let user = api.USERS[0]

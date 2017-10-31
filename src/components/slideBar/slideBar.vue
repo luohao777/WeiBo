@@ -1,13 +1,23 @@
 <template>
-  <div class="slideBar"  :class="{'active1':showSlideBar}">
+  <div class="slideBar"  :class="{'active1':showSlideBar}" @click="close">
       <nav>
           <ul>
-              <li><i class="iconfont icon-tianjia"></i>新微博</li>
-              <li>私信</li>
-              <li>3</li>
-              <li>4</li>
-              <li>5</li>
-              <li>6</li>
+              <router-link to="/loginIn">
+                <i class="iconfont icon-xie"></i><span>新微博</span>
+              </router-link>
+              <router-link to="">
+                <i class="iconfont icon-user-copy"></i><span>个人主页</span>
+                </router-link>
+              <router-link to="">
+                <i class="iconfont icon-sousuo"></i><span>搜索</span>
+              </router-link>
+              <router-link to="">
+                <i class="iconfont icon-shezhi"></i><span>设置 </span>  
+              </router-link>
+              <router-link to="">
+                 <i class="iconfont icon-tuichu"></i><span>退出</span>
+              </router-link>
+
           </ul>
       </nav>
   </div>
@@ -24,6 +34,11 @@ export default {
     showSlideBar() {
       return this.$store.state.showSlideBar;
     }
+  },
+  methods: {
+    close() {
+      this.$store.commit("CHANGE_SLIDE_BAR_BOL");
+    }
   }
 };
 </script>
@@ -34,9 +49,9 @@ export default {
   top: 8%;
   width: 100%;
   height: 100%;
-  right: 0;
+  left: 0;
   z-index: 99999;
-  margin-right: -100%;
+  margin-left: -100%;
   // opacity: 0;
   transition: all 0.3s;
   -webkit-transition: all 0.3s;
@@ -44,27 +59,28 @@ export default {
   nav {
     width: 50%;
     height: 100%;
+    box-shadow: 5px 6px 5px #cccccc;
+    float: left;
     background: white;
-    box-shadow: -3px 10px 5px #cccccc;
-    float: right;
+
     border-top: 1px solid rgba(33, 33, 34, 0.3);
     ul {
       width: 100%;
-
-      li {
-        // width: 50%;
-                  color: #212122;
-
-        font-size: 1rem;
-
+      a {
+        display: block;
+        color: #212122;
+        font-size: 1.1rem;
+        text-align: left;
+        background: white;
+        // box-shadow: 3px 10px 5px #cccccc;
+        text-indent: 1rem;
         i {
-          font-size: 1rem;
+          font-size: 1.5rem;
           box-sizing: border-box;
-          text-align: center;
-          //   border: 1px solid RGBa(244, 67, 54, 0.8);
-          color: #212122;
-          padding: 1rem 0;
-          line-height: 6rem;
+          text-align: left;
+          color: #f44336;
+          line-height: 4.5rem;
+          padding: 0.3rem;
         }
       }
     }
@@ -74,6 +90,6 @@ export default {
 .active1 {
   right: 0;
   opacity: 1;
-  margin-right: 0;
+  margin-left: 0;
 }
 </style>

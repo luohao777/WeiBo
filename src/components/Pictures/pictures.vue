@@ -36,7 +36,6 @@ export default {
   },
   methods: {
     // 打开大图页面
-    
     toEnlarge(index) {
       this.showLarge = true;
       this.objLeft.left = -index * this.x + "px";
@@ -56,7 +55,6 @@ export default {
     },
     // 左滑移动
     onSwipeLeft() {
-      console.log(1);
       let post = this.$refs.myBox.$el.getBoundingClientRect();
       if (post.x > -((this.largeImg.length - 1) * this.x)) {
         this.objLeft.left = post.x - this.x + "px";
@@ -69,9 +67,9 @@ export default {
         this.objLeft.left = post.x + this.x + "px";
       }
     },
-    changeImg(url){
-          let reg = /thumbnail/gi;
-          return url.replace(reg, "bmiddle");
+    changeImg(url) {
+      let reg = /thumbnail/gi;
+      return url.replace(reg, "bmiddle");
     }
   },
   computed: {}
@@ -80,7 +78,7 @@ export default {
 
 <style lang="less" scoped>
 img[lazy="loading"] {
-  background: url('./loading.gif') center center no-repeat;
+  background: url("./loading.gif") center center no-repeat;
   background-size: 10% 10%;
 }
 .wb_img {
@@ -120,11 +118,11 @@ img[lazy="loading"] {
         display: flex;
         align-items: center;
         transition: all 0.1s linear;
-          img {
-            max-width: 100%;
-            width: 100%;
-            height: auto;
-            display: inline-block;
+        img {
+          max-width: 100%;
+          width: 100%;
+          height: auto;
+          display: inline-block;
         }
       }
     }

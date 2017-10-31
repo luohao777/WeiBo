@@ -9,6 +9,9 @@ export default {
   },
   CHANGE_SLIDE_BAR_BOL (state){
     state.showSlideBar = !state.showSlideBar
+  },
+  CHANGE_SHOW_LOGING_IN_BOL (state){
+    state.showLoginIn = !state.showLoginIn
   }
     
   
