@@ -3,17 +3,13 @@
         <div class="wrap">
             <h1>
 								<i class="iconfont icon-weibo"></i>
-						
                 微博
             </h1>
             <p @click="loginIn">登录</p>
-
             <div class="close" @click="close">
                 <i class="iconfont icon-guanbi"></i>
             </div>
-
         </div>
-
     </div>
 </template>
 <script>
@@ -21,17 +17,19 @@ export default {
   methods: {
     close() {
       this.$store.commit("CHANGE_SHOW_LOGING_IN_BOL");
-		},
-		loginIn(){
-			this.$store.dispatch("loginIn")
-		}
-	},
-	computed:{
-    showLoginInBol (){
-      return this.$store.state.showLoginIn
+    },
+    loginIn() {
+      this.$store.dispatch("loginIn");
+      this.$store.commit("CHANGE_SHOW_LOGING_IN_BOL");
     }
-	},
-	
+  },
+  computed: {
+    showLoginInBol() {
+      console.log(this.$store.state.cookie)
+        return this.$store.state.showLoginIn;
+      
+    }
+  }
 };
 </script>
 
@@ -68,8 +66,8 @@ export default {
     h1 {
       font-size: 2rem; //   color: white;
       font-weight: lighter;
-			margin-bottom: 2rem;
-			
+      margin-bottom: 2rem;
+
       i {
         color: #f44336;
         font-size: 2.1rem; //   color: white;
@@ -80,8 +78,8 @@ export default {
       font-weight: lighter;
       border-bottom: 1px solid rgba(255, 255, 255, 0.6);
       padding: 1.8rem 0.6rem 1rem;
-			margin-bottom: 5rem;
-			color:#fff;
+      margin-bottom: 5rem;
+      color: #fff;
     }
     .close {
       i {

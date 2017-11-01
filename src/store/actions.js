@@ -3,36 +3,40 @@ import * as api from '@/api'
 import jsonp from 'jsonp'
 
 export default {
-    loginIn({ commit }){
-
-        let appKey = api.APP_KEY.appKey 
-        let redurecet_uri = api.APP_KEY.redirect_uri 
-        let url = `https://api.weibo.com/oauth2/authorize?client_id=${appKey}&redirect_uri=${redurecet_uri}`
-        console.log(url);
+    // 获取 请求token 的URL
+    getTokenUrl({ commit }) {
+        let url = 'http://sureinternet.applinzi.com/getcode.php'
+        http.get(url).then(res => {
+            commit("GET_TOKEN_URL", res.data)
+        })
     },
-    addTimeLine({ commit }) {
-        // 0为备用用户
-        let user = api.USERS[0]
-        let url = api.HOST_CONFIG.host + api.API_ROUTER_CONFIG.home_timeline +"?uid="+ user.uid + "&access_token=" + user.access_token    
+    // 通过上一个函数返回的URL请求token
+    loginIn({ state, commit }) {
+        let url = state.getTokenUrl
+        window.location.href = url
+    },
+    addTimeLine({ state,commit }) {
+        let user = state.cookie
+        let url = api.HOST_CONFIG.host + api.API_ROUTER_CONFIG.home_timeline + "?uid=" + user.uid + "&access_token=" + user.access_token
         jsonp(url, null, function (err, data) {
             if (err) {
                 console.error(err.message);
             } else {
                 console.log(data.data)
-                commit("ADD_TIMELINE",data.data)
+                commit("ADD_TIMELINE", data.data)
             }
         })
     },
-    loadMore({ commit }){
-        let user = api.USERS[0]
-        let url = api.HOST_CONFIG.host + api.API_ROUTER_CONFIG.home_timeline +"?uid="+ user.uid + "&access_token=" + user.access_token +"&page=" + (this.state.page)  
+    loadMore({ state,commit }) {
+        let user = state.cookie
+        let url = api.HOST_CONFIG.host + api.API_ROUTER_CONFIG.home_timeline + "?uid=" + user.uid + "&access_token=" + user.access_token + "&page=" + state.page
+        commit("ADD_PAGE")
         
         jsonp(url, null, function (err, data) {
             if (err) {
                 console.error(err.message);
             } else {
-                commit("ADD_TIMELINE",data.data);
-                commit("ADD_PAGE")
+                commit("ADD_TIMELINE", data.data);
             }
         })
     }

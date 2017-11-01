@@ -1,9 +1,9 @@
 const app_key = {
     appKey: 1081182036,
     appSecret: '8d3f9fc1408f7b78c781c5e659b45e23',
-    redirect_uri: 'http://1.sureinternet.applinzi.com/'
+    redirect_uri: 'http://sureinternet.applinzi.com/cb.php'
 }
-
+// "https://api.weibo.com/oauth2/authorize?response_type=code&client_id=585738332&redirect_uri=http%3A%2F%2Fwww.huya.com%2Fudb_web%2Fudbport2.php%3Fdo%3Dthe3AuthorizeCallBack%26loginType%3Dweibo&state=778fa9c55b9ef9e8372b0f705ec5a407&scope="
 const users = [
     {
         name: "user1",

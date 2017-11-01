@@ -2,9 +2,9 @@
   <div class="slideBar"  :class="{'active1':showSlideBar}" @click="close">
       <nav>
           <ul>
-              <router-link to="/loginIn">
+              <div @click="openLoginPage">
                 <i class="iconfont icon-xie"></i><span>新微博</span>
-              </router-link>
+              </div>
               <router-link to="">
                 <i class="iconfont icon-user-copy"></i><span>个人主页</span>
                 </router-link>
@@ -38,6 +38,9 @@ export default {
   methods: {
     close() {
       this.$store.commit("CHANGE_SLIDE_BAR_BOL");
+    },
+    openLoginPage() {
+      this.$store.commit("CHANGE_SHOW_LOGING_IN_BOL");
     }
   }
 };
@@ -66,6 +69,23 @@ export default {
     border-top: 1px solid rgba(33, 33, 34, 0.3);
     ul {
       width: 100%;
+      div {
+        display: block;
+        color: #212122;
+        font-size: 1.1rem;
+        text-align: left;
+        background: white;
+        // box-shadow: 3px 10px 5px #cccccc;
+        text-indent: 1rem;
+        i {
+          font-size: 1.5rem;
+          box-sizing: border-box;
+          text-align: left;
+          color: #f44336;
+          line-height: 4.5rem;
+          padding: 0.3rem;
+        }
+      }
       a {
         display: block;
         color: #212122;
