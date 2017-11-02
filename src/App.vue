@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-      <top-bar/>
+      <top-bar v-show="showTopBarBol"/>
       <slide-bar/>
       <router-view></router-view>
+      <button @click="test">测试</button>
   </div>
 </template>
 
@@ -13,40 +14,41 @@ import loginIn from "@/pages/LoginIn/loginIn";
 
 export default {
   created() {
-    // 获取请求token的url
-    this.$store.dispatch("getTokenUrl");
-    //解析cookie
-    function readCookie(name) {
-      name += "=";
-      let ca = document.cookie;
-      let cookies = ca.split(";");
-      for (let i = 0; i < cookies.length; i++) {
-        let item = cookies[i].trim();
-        if (item.indexOf(name) != -1) {
-          return item.substring(name.length);
+    if (!this.$store.state.testModel) {
+      // 获取请求token的url
+      this.$store.dispatch("getTokenUrl");
+      //解析cookie
+      function readCookie(name) {
+        name += "=";
+        let ca = document.cookie;
+        let cookies = ca.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+          let item = cookies[i].trim();
+          if (item.indexOf(name) != -1) {
+            return item.substring(name.length);
+          }
         }
       }
-    }
-    let str = readCookie("weibojs_1081182036");
-    let info = {};
-
-    if (str) {
-      let reg = /%26/gi;
-      let arr = str.split(reg);
-      for (let item of arr) {
-        let reg = /%3D/gi;
-        let arr1 = item.split(reg);
-        info[arr1[0]] = arr1[1];
+      let str = readCookie("weibojs_1081182036");
+      let info = {};
+      // 整理用户数据
+      if (str) {
+        let reg = /%26/gi;
+        let arr = str.split(reg);
+        for (let item of arr) {
+          let reg = /%3D/gi;
+          let arr1 = item.split(reg);
+          info[arr1[0]] = arr1[1];
+        }
       }
-    }
-    this.$store.commit("ADD_COOKIE", info);
+      // 添加到登录信息到vuex
+      this.$store.commit("ADD_COOKIE", info);
 
-    // 获取数据
-    this.$store.dispatch("addTimeLine")
-  },
-  methods: {
-    test() {
+      // 获取微博主页数据
       this.$store.dispatch("addTimeLine");
+    } else {
+      // this.$store.dispatch("addTimeLine");
+      console.log(window.screenWidth)
     }
   },
   components: {
@@ -54,7 +56,16 @@ export default {
     slideBar,
     loginIn
   },
-
+  methods:{
+    test () {
+      this.$store.dispatch("addTimeLine")
+    }
+  },
+  computed:{
+    showTopBarBol () {
+      return this.$store.state.showTopBarBol
+    }
+  },
   name: "app"
 };
 </script>
@@ -76,5 +87,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   overflow: hidden;
+}
+button{
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
 }
 </style>

@@ -18,28 +18,17 @@
 </template>
 
 <script>
-  import * as api from "@/api";
   import jsonp from "jsonp";
   import http from "axios";
 
   export default {
     methods: {
-      loginIn() {
-        let url =
-          "https://api.weibo.com/oauth2/authorize?client_id=1081182036&redirect_uri=http://192.168.191.1:8080";
-        http.get(url, function (err, data) {
-          if (err) {
-            console.error(err.message);
-          } else {
-            console.log(data);
-          }
-        });
-      },
       showSlideBar() {
         this.$store.commit("CHANGE_SLIDE_BAR_BOL");
       },
       refresh(){
-
+        this.$store.dispatch("refresh")
+        this.$store.dispatch("addTimeLine")
       }
     }
   };

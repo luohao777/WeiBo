@@ -1,12 +1,12 @@
 
 export default {
     homeTimeLine: [],
-    firstLoad: true,
-    page: 2,
+    page: 1,
     showSlideBar: false,
-    showLoginIn: true,
+    showTopBarBol:true,
     getTokenUrl: "",
     // 授权后获得
     isLoginIn:false,
-    cookie: ""
+    cookie: "",
+    testModel : true
 }

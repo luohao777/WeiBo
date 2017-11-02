@@ -1,10 +1,10 @@
 <template>
-  <div class="slideBar"  :class="{'active1':showSlideBar}" @click="close">
+  <div class="slideBar"  :class="{'active1':showSlideBar}" @click="closeSlideBar">
       <nav>
           <ul>
-              <div @click="openLoginPage">
+              <router-link to="new" @click.native="changeTopBarBol">
                 <i class="iconfont icon-xie"></i><span>新微博</span>
-              </div>
+              </router-link>
               <router-link to="">
                 <i class="iconfont icon-user-copy"></i><span>个人主页</span>
                 </router-link>
@@ -17,7 +17,6 @@
               <router-link to="">
                  <i class="iconfont icon-tuichu"></i><span>退出</span>
               </router-link>
-
           </ul>
       </nav>
   </div>
@@ -36,12 +35,14 @@ export default {
     }
   },
   methods: {
-    close() {
+    closeSlideBar() {
       this.$store.commit("CHANGE_SLIDE_BAR_BOL");
     },
-    openLoginPage() {
-      this.$store.commit("CHANGE_SHOW_LOGING_IN_BOL");
+    changeTopBarBol () {
+      console.log(1)
+      this.$store.commit("SHOW_TOP_BAR_BOL");
     }
+
   }
 };
 </script>

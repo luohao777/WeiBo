@@ -4,6 +4,19 @@ const app_key = {
     redirect_uri: 'http://sureinternet.applinzi.com/callback.php'
 }
 
+const users = [
+    {
+        name: "user1",
+        uid: 2170500371,
+        access_token: "2.00VSMt3CTZAwRCc80a272c54KXSA2C"
+    },
+    {
+        name: "user2",
+        uid: 5186763711,
+        access_token: "2.00NLIBfFwpWKLBba2f9ce12f6yPCUD"
+    }
+]
+
 const host_config = {
     local: 'http://192.168.191.1:8080/',
     host: 'https://api.weibo.com',
@@ -26,16 +39,13 @@ const api_router_config = {
     receive_comment: '/comments/to_me.json',
     send_comment: '/comments/by_me.json',
     my_follower: '/friendships/followers.json',
-    my_friend: '/friendships/friends.json'
-}
-
-const short_url_config = {
+    my_friend: '/friendships/friends.json',
     //短链接解析接口
     short_expend: '/short_url/expand.json'
 }
 
+
 export const APP_KEY = app_key
 export const HOST_CONFIG = host_config
 export const API_ROUTER_CONFIG = api_router_config
-export const SHORT_URL_CONFIG = short_url_config
 export const USERS = users

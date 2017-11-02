@@ -1,7 +1,7 @@
 <template>
-  <div class="home" >
-    <div class="wb_wrap" v-for="(item,index) in homeTimelineData" :key="index">
-      <!-- <p>{{""+(index+1)+"条微博"}}</p> -->
+  <!-- <div class="home" v-if="homeTimelineData" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10"> -->
+  <div class="home" v-if="homeTimelineData" >
+    <div class="wb_wrap"  v-for="(item,index) in list" :key="index"  >
       <!-- 主微博文本内容 -->
       <div class="wb_text">{{item.text}}</div>
       <!-- 主微博图片 -->
@@ -20,7 +20,6 @@
           <span>{{item.retweeted_status.user.name}}</span>
           <img :src="item.retweeted_status.user.profile_image_url" alt="">
         </div>
- 
       </div>
       <div class="wb_info">
         <div class="wb_left">
@@ -47,26 +46,25 @@
         </i>
       </div>
     </div>
-    <infinite-loading @infinite="infiniteHandler"></infinite-loading>
-
+    <div class="loading" v-if="loading">
+      <div>
+          <div></div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
-import pictures from "@/components/Pictures/pictures";
-import InfiniteLoading from "vue-infinite-loading";
+import pictures from "@/components/Pictures/pictures"
+import InfiniteLoading from "vue-infinite-loading"
+
 export default {
   data() {
     return {
+      list: [],
       loading: false
     };
   },
   methods: {
-    infiniteHandler() {        
-
-       if(!this.$store.state.firstLoad){
-         this.$store.dispatch("loadMore");
-       }
-    },
     time(createTime) {
       let now = new Date();
       let create = new Date(createTime);
@@ -83,15 +81,23 @@ export default {
         }
       }
     },
+    loadMore() {
+      console.log("1");
+      this.loading = true;
+      setTimeout(() => {
+        this.$store.dispatch("addTimeLine");
+        this.loading = false;
+      }, 1000);
+    }
   },
   computed: {
     homeTimelineData() {
+      this.list = this.$store.state.homeTimeLine;
       return this.$store.state.homeTimeLine;
     }
   },
   components: {
-    pictures,
-    InfiniteLoading
+    pictures
   }
 };
 </script>
@@ -158,8 +164,7 @@ export default {
         overflow: hidden;
         display: inline-block;
         vertical-align: middle;
-        border: 1px solid rgba(0, 0, 0, 0.1)
-
+        border: 1px solid rgba(0, 0, 0, 0.1);
       }
       .wb_right {
         display: inline-block;
@@ -194,5 +199,42 @@ export default {
 
 .home::-webkit-scrollbar {
   display: none;
+}
+@keyframes sl {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  width: 100%;
+  height: 3rem;
+  text-align: center;
+  padding-top: 1rem;
+  div {
+    position: relative;
+    margin: 0 auto;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: transparent;
+    border: 1px solid #212122;
+    border-radius: 50%;
+    animation: sl 1.5s linear infinite;
+    -webkit-animation: sl 1.5s linear infinite;
+    text-align: center;
+    line-height: 3rem;
+    div {
+      width: 0.3rem;
+      height: 0.3rem;
+      background: #727272;
+      border-radius: 50%;
+      position: absolute;
+      left: .6rem;
+      top: -0.21rem;
+    }
+  }
 }
 </style>

@@ -44,7 +44,7 @@ export default {
         for (let item of this.imgs) {
           let reg = /thumbnail/gi;
           let a = item.thumbnail_pic;
-          let url = a.replace(reg, "bmiddle");
+          let url = a.replace(reg, "large");
           this.largeImg.push(url);
         }
       }
