@@ -8,6 +8,6 @@ export default {
     // 授权后获得
     isLoginIn:false,
     cookie: "",
-    testModel : true,
+    testModel : false,
     
 }
