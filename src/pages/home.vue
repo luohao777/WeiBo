@@ -1,19 +1,21 @@
 <template>
   <!-- <div class="home" v-if="homeTimelineData" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10"> -->
-  <div class="home" v-if="homeTimelineData" >
-    <div class="wb_wrap"  v-for="(item,index) in list" :key="index"  >
+    
+  <div class="home" v-if="homeTimelineData">
+    <top-bar/>
+    <div class="wb_wrap" v-for="(item,index) in list" :key="index">
       <!-- 主微博文本内容 -->
       <div class="wb_text">{{item.text}}</div>
       <!-- 主微博图片 -->
-      <pictures :imgs="item.pic_urls" :singlePicture="item.thumbnail_pic"/>
+      <pictures :imgs="item.pic_urls" :singlePicture="item.thumbnail_pic" />
 
       <!-- 转发 -->
       <div class="wb_transpond" v-if="item.retweeted_status">
         <!-- 转发内容 -->
         <p class="wb_text">{{item.retweeted_status.text}}</p>
         <!-- 转发图片 -->
-        <pictures :imgs="item.retweeted_status.pic_urls" :singlePicture="item.retweeted_status.thumbnail_pic"/>
-        
+        <pictures :imgs="item.retweeted_status.pic_urls" :singlePicture="item.retweeted_status.thumbnail_pic" />
+        <!-- 被转发的用户信息 -->
         <div class="wb_transpondInfo">
           <i class="iconfont icon-zhuanfa01"></i>
           <span>自&nbsp;</span>
@@ -21,41 +23,51 @@
           <img :src="item.retweeted_status.user.profile_image_url" alt="">
         </div>
       </div>
+      <!-- 个人信息 -->
       <div class="wb_info">
         <div class="wb_left">
           <img :src="item.user.profile_image_url" alt="">
         </div>
         <div class="wb_right">
           <p class="wb_created_at">
-            {{time(item.created_at)}}
+            {{computedTime(item.created_at)}}
           </p>
           <p class="wb_user">
             {{item.user.name}}
           </p>
         </div>
       </div>
+      <!-- 工具栏 -->
       <div class="wb_feed_handle">
-        <i class="iconfont icon-zhuanfa01">
-        </i>
-        <i class="iconfont icon-pinglun">
-        </i>
-        <i class="iconfont icon-aixin">
-        </i>
-        </i>
-        <i class="iconfont icon-cebianlanzhankai">
-        </i>
+        <div>
+          <i class="iconfont icon-zhuanfa01">
+          </i>
+          <span>{{item.attitudes_count}}</span>
+        </div>
+
+        <router-link :to="URL(item.id)" >
+          <i class="iconfont icon-pinglun"></i>
+          <span>{{item.comments_count}}</span>
+        </router-link>
+        <div>
+          <i class="iconfont icon-aixin">
+          </i>
+          <span>{{item.attitudes_count}}</span>
+        </div>
       </div>
     </div>
     <div class="loading" v-if="loading">
       <div>
-          <div></div>
+        <div></div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import pictures from "@/components/Pictures/pictures"
-import InfiniteLoading from "vue-infinite-loading"
+import topBar from "@/components/topBar";
+import pictures from "@/components/Pictures/pictures";
+import InfiniteLoading from "vue-infinite-loading";
+import { time } from "@/utils/time-utils";
 
 export default {
   data() {
@@ -65,21 +77,8 @@ export default {
     };
   },
   methods: {
-    time(createTime) {
-      let now = new Date();
-      let create = new Date(createTime);
-      let differ = (now.getTime() - create.getTime()) / 1000;
-      if (differ < 60) {
-        return parseInt(differ) + "秒前";
-      } else {
-        let differMin = differ / 60;
-        if (differMin < 60) {
-          return parseInt(differMin) + "分钟前";
-        } else {
-          let differHours = differMin / 60;
-          return parseInt(differHours) + "小时前";
-        }
-      }
+    computedTime(createTime) {
+      return time(createTime);
     },
     loadMore() {
       console.log("1");
@@ -88,6 +87,9 @@ export default {
         this.$store.dispatch("addTimeLine");
         this.loading = false;
       }, 1000);
+    },
+    URL(id) {
+      return "/comments/" + id;
     }
   },
   computed: {
@@ -97,7 +99,8 @@ export default {
     }
   },
   components: {
-    pictures
+    pictures,
+    topBar
   }
 };
 </script>
@@ -105,16 +108,17 @@ export default {
 <style lang="less" socped>
 .home {
   width: 100%;
-  height: 92%;
+  height: 100%;
   background-color: #efefef;
   overflow: auto;
-  position: relative;
-
+  padding-top: 12%;
+  background-origin: content-box;
   .wb_wrap {
     position: relative;
     max-width: 765px;
     margin: 1rem auto;
     width: 100%;
+    min-width: 320px;
     padding: 2rem;
     box-sizing: border-box;
     background: white;
@@ -127,6 +131,7 @@ export default {
       line-height: 1.5rem;
       color: #212122;
       overflow: hidden;
+      letter-spacing: .5px;
       padding: 1rem 0.6rem;
     }
     .wb_transpond {
@@ -185,13 +190,10 @@ export default {
     }
     .wb_feed_handle {
       position: absolute;
-      bottom: 1.4rem;
+      bottom: 3rem;
       right: 1.3rem;
-      > .icon-aixin {
-        color: red;
-      }
-      > i {
-        font-size: 1.3rem;
+      div {
+        display: inline-block;
       }
     }
   }
@@ -200,6 +202,7 @@ export default {
 .home::-webkit-scrollbar {
   display: none;
 }
+
 @keyframes sl {
   from {
     transform: rotate(0deg);
@@ -208,7 +211,6 @@ export default {
     transform: rotate(360deg);
   }
 }
-
 .loading {
   width: 100%;
   height: 3rem;
@@ -232,7 +234,7 @@ export default {
       background: #727272;
       border-radius: 50%;
       position: absolute;
-      left: .6rem;
+      left: 0.6rem;
       top: -0.21rem;
     }
   }

@@ -15,11 +15,12 @@ export default {
         let url = state.getTokenUrl
         window.location.href = url
     },
+    // 获取主页时间线, 将数据并入store中timeLine
     addTimeLine({ state, commit }) {
         let user, url
         if (state.testModel) {
             // 测试模式下使用
-            user = api.USERS[1]
+            user = api.USERS[0]
         } else {
             user = state.cookie
         }
@@ -29,12 +30,36 @@ export default {
             if (err) {
                 console.error(err.message)
             } else {
+                console.log(data)
                 commit("ADD_TIMELINE", data.data)
             }
         })
     },
     refresh ({ state, commit }) {
         commit("REFRESH")
+    },
+    // 获取单条微博评论
+    getComments ({ state,commit },id) {
+        let user, url
+        if (state.testModel) {
+            // 测试模式下使用
+            user = api.USERS[0]
+        } else {
+            user = state.cookie
+        }
+        url = api.HOST_CONFIG.host + api.API_ROUTER_CONFIG.content_comments +  "?access_token=" + user.access_token+"&id="+id
+
+        jsonp(url, null, function (err, data) {
+            if (err) {
+                console.error(err.message)
+            } else {
+                console.log(data)
+                commit("ADD_COMMENTS",data.data)
+            }       
+            
+        })
+
+
     }
 }
 

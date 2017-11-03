@@ -38,7 +38,8 @@
   .topBar {
     width: 100%;
     height: 8%;
-    position: relative;
+    position: absolute;
+    top: 0;left: 0;
     background: #ffffff;
     display: flex;
     flex-direction: row;
@@ -52,7 +53,6 @@
 
     .logo {
       a{
-        
       i {
         color: #f44336;
         font-size: 2.6rem;

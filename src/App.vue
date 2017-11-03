@@ -1,14 +1,12 @@
 <template>
   <div id="app">
-      <top-bar v-show="showTopBarBol"/>
       <slide-bar/>
-      <router-view></router-view>
+      <router-view></router-view>      
       <button @click="test">测试</button>
   </div>
 </template>
 
 <script>
-import topBar from "@/components/topBar";
 import slideBar from "@/components/slideBar/slideBar";
 import loginIn from "@/pages/LoginIn/loginIn";
 
@@ -48,22 +46,21 @@ export default {
       this.$store.dispatch("addTimeLine");
     } else {
       // this.$store.dispatch("addTimeLine");
-      console.log(window.screenWidth)
+      console.log(window.screenWidth);
     }
   },
   components: {
-    topBar,
     slideBar,
     loginIn
   },
-  methods:{
-    test () {
-      this.$store.dispatch("addTimeLine")
+  methods: {
+    test() {
+      this.$store.dispatch("addTimeLine");
     }
   },
-  computed:{
-    showTopBarBol () {
-      return this.$store.state.showTopBarBol
+  computed: {
+    showTopBarBol() {
+      return this.$store.state.showTopBarBol;
     }
   },
   name: "app"
@@ -81,6 +78,7 @@ body {
 #app {
   width: 100%;
   height: 100%;
+  min-width: 320px;
   position: relative;
   font-family: "微软雅黑", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -88,7 +86,7 @@ body {
   text-align: center;
   overflow: hidden;
 }
-button{
+button {
   position: fixed;
   right: 1rem;
   bottom: 1rem;

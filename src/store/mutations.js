@@ -26,7 +26,8 @@ export default {
     state.homeTimeLine = []
     state.page = 1
   },
-  SHOW_TOP_BAR_BOL (state) {
-    state.showTopBarBol = !state.showTopBarBol
+  ADD_COMMENTS (state,data) {
+    console.log(data)
+    state.comments = data
   }
 }

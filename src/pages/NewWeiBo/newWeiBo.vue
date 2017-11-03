@@ -19,7 +19,7 @@
     </div>
 </template>
 <script>
-import * as api from "@/api/impl/send_post";
+import * as api from "@/api/request/send_post";
 
 export default {
   data() {

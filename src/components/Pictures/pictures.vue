@@ -18,7 +18,7 @@
 
 </template>
 <script>
-let x = screen.width;
+let x = document.body.offsetHeight;
 let y = document.body.offsetHeight;
 export default {
   props: ["imgs"],
@@ -44,7 +44,7 @@ export default {
         for (let item of this.imgs) {
           let reg = /thumbnail/gi;
           let a = item.thumbnail_pic;
-          let url = a.replace(reg, "large");
+          let url = a.replace(reg, "bmiddle");
           this.largeImg.push(url);
         }
       }
@@ -77,10 +77,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-img[lazy="loading"] {
-  background: url("./loading.gif") center center no-repeat;
-  background-size: 10% 10%;
-}
 .wb_img {
   width: 100%;
   > ul {
@@ -123,6 +119,15 @@ img[lazy="loading"] {
           width: 100%;
           height: auto;
           display: inline-block;
+        }
+        img[lazy="loading"] {
+          background: url("./loading.gif") center center no-repeat;
+          background-size: 100% 100%;
+          // max-width: 100%;
+          // width: 100%;
+          // height: auto;
+          // display: inline-block;
+
         }
       }
     }

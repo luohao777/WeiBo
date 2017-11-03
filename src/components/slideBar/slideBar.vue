@@ -37,10 +37,6 @@ export default {
   methods: {
     closeSlideBar() {
       this.$store.commit("CHANGE_SLIDE_BAR_BOL");
-    },
-    changeTopBarBol () {
-      console.log(1)
-      this.$store.commit("SHOW_TOP_BAR_BOL");
     }
 
   }
