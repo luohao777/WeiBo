@@ -141,7 +141,7 @@ export default {
   background-color: #efefef;
   padding-top: 12%;
   background-origin: content-box;
-
+  box-sizing: border-box;
   .comments-wrap {
     max-width: 765px;
     margin: 1rem auto;

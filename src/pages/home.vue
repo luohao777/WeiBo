@@ -1,7 +1,7 @@
 <template>
-  <div class="home" v-if="homeTimelineData" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
+  <!-- <div class="home" v-if="homeTimelineData" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10"> -->
     
-  <!-- <div class="home" v-if="homeTimelineData"> -->
+  <div class="home" v-if="homeTimelineData">
     <top-bar/>
     <div class="wb_wrap" v-for="(item,index) in list" :key="index">
       <!-- 主微博文本内容 -->
@@ -131,7 +131,7 @@ export default {
       line-height: 1.5rem;
       color: #212122;
       overflow: hidden;
-      letter-spacing: .5px;
+      letter-spacing: 0.5px;
       padding: 1rem 0.6rem;
     }
     .wb_transpond {
@@ -194,12 +194,10 @@ export default {
       right: 1.3rem;
       div {
         display: inline-block;
-        .icon-aixin{
-          color:#f44336;
+        .icon-aixin {
+          color: #f44336;
         }
-
       }
-
     }
   }
 }
