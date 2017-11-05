@@ -38,7 +38,7 @@
   .topBar {
     width: 100%;
     height: 8%;
-    position: absolute;
+    position: fixed;
     top: 0;left: 0;
     background: #ffffff;
     display: flex;

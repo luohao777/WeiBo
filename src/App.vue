@@ -10,6 +10,7 @@
 import slideBar from "@/components/slideBar/slideBar";
 import loginIn from "@/pages/LoginIn/loginIn";
 
+
 export default {
   created() {
     if (!this.$store.state.testModel) {
@@ -84,7 +85,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 button {
   position: fixed;

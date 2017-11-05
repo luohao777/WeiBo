@@ -10,8 +10,6 @@
         <div>
             <i class="iconfont icon-cebianlan"></i>
         </div>
-
-
     </div>
 </template>
 
@@ -30,7 +28,7 @@ export default {
 .titleBar {
   width: 100%;
   height: 8%;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background: #ffffff;

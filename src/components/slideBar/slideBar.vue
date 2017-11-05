@@ -2,7 +2,7 @@
   <div class="slideBar"  :class="{'active1':showSlideBar}" @click="closeSlideBar">
       <nav>
           <ul>
-              <router-link to="new" @click.native="changeTopBarBol">
+              <router-link to="new">
                 <i class="iconfont icon-xie"></i><span>新微博</span>
               </router-link>
               <router-link to="">
@@ -38,7 +38,6 @@ export default {
     closeSlideBar() {
       this.$store.commit("CHANGE_SLIDE_BAR_BOL");
     }
-
   }
 };
 </script>

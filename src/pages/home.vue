@@ -108,11 +108,12 @@ export default {
 <style lang="less" socped>
 .home {
   width: 100%;
-  height: 100%;
+  // height: 100%;
   background-color: #efefef;
-  overflow: auto;
+  // overflow: auto;
   padding-top: 12%;
   background-origin: content-box;
+  box-sizing: border-box;
   .wb_wrap {
     position: relative;
     max-width: 765px;

@@ -18,7 +18,8 @@
 
 </template>
 <script>
-let x = document.body.offsetHeight;
+let x = document.body.offsetwidth;
+console.log(x)
 let y = document.body.offsetHeight;
 export default {
   props: ["imgs"],
@@ -55,6 +56,8 @@ export default {
     },
     // 左滑移动
     onSwipeLeft() {
+      console.log(2)
+      
       let post = this.$refs.myBox.$el.getBoundingClientRect();
       if (post.x > -((this.largeImg.length - 1) * this.x)) {
         this.objLeft.left = post.x - this.x + "px";
@@ -62,6 +65,7 @@ export default {
     },
     // 右滑移动
     onSwipeRight() {
+      console.log(1)
       let post = this.$refs.myBox.$el.getBoundingClientRect();
       if (post.x < 0) {
         this.objLeft.left = post.x + this.x + "px";
@@ -71,6 +75,7 @@ export default {
       let reg = /thumbnail/gi;
       return url.replace(reg, "bmiddle");
     }
+
   },
   computed: {}
 };
@@ -118,15 +123,17 @@ export default {
           max-width: 100%;
           width: 100%;
           height: auto;
+          max-height: 100%;
           display: inline-block;
         }
         img[lazy="loading"] {
           background: url("./loading.gif") center center no-repeat;
           background-size: 100% 100%;
-          // max-width: 100%;
-          // width: 100%;
-          // height: auto;
-          // display: inline-block;
+          max-width: 100%;
+          width: 100%;
+          height: auto;
+          max-height: 100%;
+          display: inline-block;
 
         }
       }

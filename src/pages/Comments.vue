@@ -136,8 +136,6 @@ export default {
 <style lang="less" scoped>
 .comments {
   width: 100%;
-  height: 100%;
-  overflow: auto;
   background-color: #efefef;
   padding-top: 12%;
   background-origin: content-box;
