@@ -2,14 +2,13 @@
   <div id="app">
       <slide-bar/>
       <router-view></router-view>      
-      <button @click="test">测试</button>
+      <!-- <button @click="test">测试</button> -->
   </div>
 </template>
 
 <script>
 import slideBar from "@/components/slideBar/slideBar";
 import loginIn from "@/pages/LoginIn/loginIn";
-
 
 export default {
   created() {

@@ -56,8 +56,7 @@ export default {
     },
     // 左滑移动
     onSwipeLeft() {
-      console.log(2)
-      
+     
       let post = this.$refs.myBox.$el.getBoundingClientRect();
       if (post.x > -((this.largeImg.length - 1) * this.x)) {
         this.objLeft.left = post.x - this.x + "px";

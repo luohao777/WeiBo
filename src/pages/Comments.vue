@@ -17,7 +17,6 @@
           </p>
         </div>
       </div>
-
       <!-- 主微博文本内容 -->
       <div class="wb_text">{{wb.text}}</div>
       <!-- 主微博图片 -->
@@ -82,19 +81,17 @@
 </template>
 
 <script>
-import { time } from "@/utils/time-utils";
-import pictures from "@/components/Pictures/pictures";
-import titleBar from "@/components/TitleBar";
+import { time } from "@/utils/time-utils"
+import pictures from "@/components/Pictures/pictures"
+import titleBar from "@/components/TitleBar"
 
 export default {
   created() {
-    if (this.$store.state.testModel) {
-      this.$store.dispatch("getComments", this.$route.params.userId);
-      let id = this.$route.params.userId;
-      for (let item of this.$store.state.homeTimeLine) {
-        if (item.id == parseInt(id)) {
-          this.originalWb = item;
-        }
+    this.$store.dispatch("getComments", this.$route.params.userId);
+    let id = this.$route.params.userId;
+    for (let item of this.$store.state.homeTimeLine) {
+      if (item.id == parseInt(id)) {
+        this.originalWb = item;
       }
     }
   },
@@ -106,16 +103,6 @@ export default {
   methods: {
     computedTime(createdTime) {
       return time(createdTime);
-    },
-    test() {
-      this.$store.dispatch("getComments", this.$route.params.userId);
-      let id = this.$route.params.userId;
-      for (let item of this.$store.state.homeTimeLine) {
-        if (item.id == parseInt(id)) {
-          console.log(item);
-          this.originalWb = item;
-        }
-      }
     }
   },
   computed: {
@@ -156,7 +143,7 @@ export default {
         color: #212122;
         overflow: hidden;
         padding: 1rem 0.6rem;
-      letter-spacing: .5px;
+        letter-spacing: 0.5px;
       }
 
       .wb_info {
@@ -213,7 +200,7 @@ export default {
     color: #212122;
     overflow: hidden;
     padding: 1rem 0.6rem;
-      letter-spacing: .5px;
+    letter-spacing: 0.5px;
   }
   .wb_transpond {
     box-sizing: border-box;

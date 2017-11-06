@@ -32,13 +32,6 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
-        target: 'https://api.weibo.com/2/statuses/public_timeline.json',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': '/'
-        }
-      }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README

@@ -9,7 +9,6 @@ import * as scrollUtils from '@/utils/scroll-position'
 Vue.use(Router)
 
 const router = new Router({
-  mode: 'history',  
   routes: [
     {
       path: '/',
@@ -60,7 +59,6 @@ router.beforeEach((to, from, next) => {
   })
 
   router.afterEach((to, from, next) => {
-        console.log(routerList)
         let savedPosition = routerList.find(e => {
             return e.path === to.fullPath
         })

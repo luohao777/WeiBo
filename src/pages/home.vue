@@ -1,7 +1,6 @@
 <template>
-  <!-- <div class="home" v-if="homeTimelineData" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10"> -->
-    
-  <div class="home" v-if="homeTimelineData">
+  <div class="home" v-if="homeTimelineData" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
+  <!-- <div class="home" v-if="homeTimelineData"> -->
     <top-bar/>
     <div class="wb_wrap" v-for="(item,index) in list" :key="index">
       <!-- 主微博文本内容 -->
