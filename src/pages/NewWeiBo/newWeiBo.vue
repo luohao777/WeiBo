@@ -16,6 +16,12 @@
         </div>
         <div class="post-image">
         </div>
+        <div class="waitSend" :class='{isSending:sending}'>
+          <div>
+
+          </div>
+        </div>
+        
     </div>
 </template>
 <script>
@@ -65,7 +71,8 @@ export default {
           '<a href="http://open.t.sina.com.cn" rel="nofollow">微博开放平台接口</a>'
       },
       active: false,
-      text: ""
+      text: "",
+      sending:false
     };
   },
   computed: {
@@ -78,12 +85,14 @@ export default {
     }
   },
   methods: {
+    
     sendText() {
+      this.sending = true
       let state = {}
       state.text = this.text
       share(state,(res)=>{
-        console.log("发送成功")
         console.log(res)
+        this.sending = false
       },(err)=>{
         console.log("发送失败",err)
       })
@@ -106,6 +115,7 @@ export default {
   height: 100%;
   box-sizing: border-box;
   padding: 1.3rem;
+  overflow:hidden;
   .post-nav {
     display: flex;
     justify-content: space-between;

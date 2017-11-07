@@ -6,7 +6,7 @@ import store from '../../store/'
 export const share = (status, okCallback, errorCallback) => {
     // 利用分享接口发送微博    
     // 向我的服务器发送Get请求
-    let url = HOST_CONFIG.host + "method=share" + "&text=" + encodeURI(status.text)  + " http://sureinternet.applinzi.com"
+    let url = HOST_CONFIG.host + "method=share" + "&text=" + encodeURI(status.text)  + encodeURI("http://sureinternet.applinzi.com")
     axios.get(url)
         .then(function (response) {
             okCallback(response)
