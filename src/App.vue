@@ -2,7 +2,7 @@
   <div id="app">
       <slide-bar/>
       <router-view></router-view>      
-      <!-- <button @click="test">测试</button> -->
+      <button @click="test">测试</button> 
   </div>
 </template>
 

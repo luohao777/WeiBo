@@ -1,34 +1,51 @@
 import axios from 'axios';
-import { USERS,HOST_CONFIG, API_ROUTER_CONFIG } from '../config/config'
+import { USERS, HOST_CONFIG, API_ROUTER_CONFIG } from '../config/config'
 import store from '../../store/'
 
 
-export const postSendText = (status, okCallback, errorCallback) => {
+export const share = (status, okCallback, errorCallback) => {
+    // 利用分享接口发送微博    
+    // 向我的服务器发送Get请求
+    let url = HOST_CONFIG.host + "method=share" + "&text=" + encodeURI(status.text)  + " http://sureinternet.applinzi.com"
+    axios.get(url)
+        .then(function (response) {
+            okCallback(response)
+        })
+        .catch(function (error) {
+            console.log(error);
+            errorCallback(error)
+        })
+}
+const send_comment = (status, okCallback, errorCallback) => {
+    // 评论一条微博
+    let url = HOST_CONFIG.host + "method=send_comment" + "&text=" + encodeURI(status.text) + "&id=" + status.id
+    axios.get(url)
+        .then(function (response) {
+            okCallback(response)
+        })
+        .catch(function (error) {
+            console.log(error);
+            errorCallback(error)
+        })
+}
+const comments_reply = (status, okCallback, errorCallback) => {
+    // 回复一条评论
+    let url = HOST_CONFIG.host + "method=comments_reply" + "&text=" + status.text + "&id=" + status.id + "&cid" + status.cid
 
-    if(store.state.testModel){
-        const accesstoken = USERS[1].access_token
-    
-    }else{
-        const accesstoken = store.state.cookie.access_token
-    }
-    
+    axios.get(url)
+        .then(function (response) {
+            okCallback(response)
+        })
+        .catch(function (error) {
+            console.log(error);
+            errorCallback(error)
+        }) 
+}
 
-    var postData = {
-        access_token: accesstoken,
-        status: status
-    }
-
-    var config = {
-        method: 'post',
-        url: API_ROUTER_CONFIG.send_post_text,
-        baseURL: HOST_CONCIG.host,
-        data: postData,
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
-
-    axios(config)
+export const comments_destroy = (status, okCallback, errorCallback) => {
+    // 删除一条我的评论
+    let url = HOST_CONFIG.host + "method=comments_destroy" + "&cid=" + status.cid
+    axios.get(url)
         .then(function (response) {
             okCallback(response)
         })
@@ -38,24 +55,11 @@ export const postSendText = (status, okCallback, errorCallback) => {
         })
 }
 
-export const postSendImg = (status, pic, okCallback, errorCallback) => {
 
-    const accesstoken = store.getters.token.access_token
-    let form = new FormData()
-	form.append('access_token', accesstoken)
-	form.append('status', status)
-    form.append('pic', pic)
-    var config = {
-        method: 'post',
-        url: API_ROUTER_CONFIG.send_post_image,
-        baseURL: HOST_CONCIG.host,
-        data: form,
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    }
-
-    axios(config)
+export const favorites_create = (status, okCallback, errorCallback) => {
+    // 收藏一条微博
+    let url = HOST_CONFIG.host + "method=favorites_create" + "&id=" + status.id
+    axios.get(url)
         .then(function (response) {
             okCallback(response)
         })
@@ -64,3 +68,6 @@ export const postSendImg = (status, pic, okCallback, errorCallback) => {
             errorCallback(error)
         })
 }
+
+
+

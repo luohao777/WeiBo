@@ -19,7 +19,7 @@
     </div>
 </template>
 <script>
-import * as api from "@/api/request/send_post";
+import { share } from "@/api/request/send_post";
 
 export default {
   data() {
@@ -79,18 +79,14 @@ export default {
   },
   methods: {
     sendText() {
-      let that = this;
-      api.postSendText(
-        self.text,
-        response => {
-          if (response.status == 200) {
-            console.log(111);
-          }
-        },
-        err => {
-          alert("发送失败，请稍后尝试")
-        }
-      );
+      let state = {}
+      state.text = this.text
+      share(state,(res)=>{
+        console.log("发送成功")
+        console.log(res)
+      },(err)=>{
+        console.log("发送失败",err)
+      })
     },
     close() {
       this.$router.go(-1)

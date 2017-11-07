@@ -56,10 +56,7 @@ export default {
                 console.log(data)
                 commit("ADD_COMMENTS",data.data)
             }       
-            
         })
-
-
-    }
+    },
 }
 
