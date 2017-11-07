@@ -19,7 +19,8 @@ const users = [
 
 const host_config = {
     local: 'http://192.168.191.1:8080/',
-    host: 'http://sureinternet.applinzi.com/send.php?',
+    sendHost: 'http://sureinternet.applinzi.com/send.php?',
+    host:'https://api.weibo.com/2',
     oauth: 'https://open.weibo.cn/oauth2/authorize/'
 }
 

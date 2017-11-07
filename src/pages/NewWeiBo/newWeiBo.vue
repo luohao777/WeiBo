@@ -16,7 +16,7 @@
         </div>
         <div class="post-image">
         </div>
-        <div class="waitSend" :class='{isSending:sending}'>
+        <div class="post-loading" :class='{isSending:sending}'>
           <div>
 
           </div>
@@ -72,7 +72,7 @@ export default {
       },
       active: false,
       text: "",
-      sending:false
+      sending:true
     };
   },
   computed: {
@@ -85,7 +85,6 @@ export default {
     }
   },
   methods: {
-    
     sendText() {
       this.sending = true
       let state = {}
@@ -94,12 +93,11 @@ export default {
         console.log(res)
         this.sending = false
       },(err)=>{
-        console.log("发送失败",err)
+        console.log("发送失败")
       })
     },
     close() {
       this.$router.go(-1)
-      this.$store.commit("SHOW_TOP_BAR_BOL")
     }
   }
 };
@@ -153,6 +151,17 @@ export default {
       outline: none;
       resize: none;
       border: none;
+    }
+  }
+  .post-loading{
+    width:100%;
+    height:100%;
+    display: flex;
+    
+    div{
+      width:50px;
+      height:50px;
+      background:red;
     }
   }
 }

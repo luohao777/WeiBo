@@ -20,7 +20,7 @@ export default {
         let user, url
         if (state.testModel) {
             // 测试模式下使用
-            user = api.USERS[0]
+            user = api.USERS[1]
         } else {
             user = state.cookie
         }
@@ -28,7 +28,7 @@ export default {
         commit("ADD_PAGE")
         jsonp(url, null, function (err, data) {
             if (err) {
-                console.error(err.message)
+                console.error(err)
             } else {
                 console.log(data)
                 commit("ADD_TIMELINE", data.data)
