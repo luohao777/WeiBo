@@ -44,16 +44,17 @@ export default {
 
 <style lang="less" scoped>
 .slideBar {
-  position: absolute;
+  position: fixed;
   top: 8%;
   width: 100%;
-  // height: 100%;
+  height: 92%;
   left: 0;
-  z-index: 99999;
+  z-index: 9999;
   margin-left: -100%;
   transition: all 0.3s;
   -webkit-transition: all 0.3s;
   color: RGB(244, 67, 54);
+  background: red;
   nav {
     width: 50%;
     height: 100%;

@@ -3,7 +3,6 @@
         <div class="post-nav">
             <div @click="close">
                 <i class="iconfont icon-guanbi"></i>
-
             </div>
             <div>
                 <span :class="{'active':isActive}" @click="sendText">发送</span>
@@ -16,12 +15,15 @@
         </div>
         <div class="post-image">
         </div>
-        <div class="post-loading" :class='{isSending:sending}'>
-          <div>
-
+        <div class="post-message-wrap" v-show="showMessageBox">
+          <div class="post-message-box">
+              <div :class="{sending:sendingBol,success:successBol,fail:failBol}">
+                <i v-if="successBol" class="iconfont icon-weibo"></i>
+                <i v-if="failBol" class="iconfont icon-guanbi"></i>
+              </div>
+               <p>{{messageText}}</p>
           </div>
-        </div>
-        
+        </div>        
     </div>
 </template>
 <script>
@@ -30,49 +32,13 @@ import { share } from "@/api/request/send_post";
 export default {
   data() {
     return {
-      new: {
-        created_at: "Mon Dec 13 14:56:03 +0800 2010",
-        text: "abc",
-        truncated: false,
-        in_reply_to_status_id: "",
-        annotations: [
-          {
-            type2: 123
-          }
-        ],
-        in_reply_to_screen_name: "",
-        geo: null,
-        user: {
-          name: "siegetest2",
-          domain: "",
-          geo_enabled: true,
-          followers_count: 0,
-          statuses_count: 3,
-          favourites_count: 0,
-          city: "8",
-          description: "",
-          verified: false,
-          id: 1854835127,
-          gender: "m",
-          friends_count: 20,
-          screen_name: "siegetest2",
-          allow_all_act_msg: false,
-          following: false,
-          url: "",
-          profile_image_url: "http://tp4.sinaimg.cn/1854835127/50/1291709848/1",
-          created_at: "Thu Nov 11 00:00:00 +0800 2010",
-          province: "11",
-          location: "北京 海淀区"
-        },
-        favorited: false,
-        in_reply_to_user_id: "",
-        id: 4288574373,
-        source:
-          '<a href="http://open.t.sina.com.cn" rel="nofollow">微博开放平台接口</a>'
-      },
       active: false,
       text: "",
-      sending:true
+      showMessageBox: false,
+      sendingBol: true,
+      successBol: false,
+      failBol: false,
+      messageText: "发送中..."
     };
   },
   computed: {
@@ -85,19 +51,54 @@ export default {
     }
   },
   methods: {
-    sendText() {
-      this.sending = true
-      let state = {}
-      state.text = this.text
-      share(state,(res)=>{
-        console.log(res)
-        this.sending = false
-      },(err)=>{
-        console.log("发送失败")
-      })
+    sendText(e) {
+      this.messageText = "发送中...";
+      if (!this.text) {
+        return
+      } else {
+        this.showMessageBox = true;
+        let state = {};
+        state.text = this.text;
+        share(
+          state,
+          res => {
+            console.log(res);
+            if (res.data.match("21301")) {
+              this.sendingBol = false;
+              this.failBol = true;
+              this.messageText = "发送失败";
+              setTimeout(() => {
+                this.showMessageBox = false;
+                this.sendingBol = true;
+                this.failBol = false;
+              }, 1000);
+            } else {
+              this.sendingBol = false;
+              this.successBol = true;
+              this.messageText = "发送成功";
+              setTimeout(() => {
+                this.showMessageBox = false;
+                this.sendingBol = true;
+                this.successBol = false;
+              }, 1000);
+            }
+          },
+          err => {
+            this.sendingBol = false;
+            this.failBol = true;
+            this.messageText = "发送失败";
+            setTimeout(() => {
+              this.showMessageBox = false;
+              this.sendingBol = true;
+
+              this.failBol = false;
+            }, 1000);
+          }
+        );
+      }
     },
     close() {
-      this.$router.go(-1)
+      this.$router.go(-1);
     }
   }
 };
@@ -113,7 +114,7 @@ export default {
   height: 100%;
   box-sizing: border-box;
   padding: 1.3rem;
-  overflow:hidden;
+  overflow: hidden;
   .post-nav {
     display: flex;
     justify-content: space-between;
@@ -153,15 +154,94 @@ export default {
       border: none;
     }
   }
-  .post-loading{
-    width:100%;
-    height:100%;
+  .post-message-wrap {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 10%;
+    height: 10%;
+    text-align: center;
+    padding-top: 1rem;
+    width: 100%;
+    height: 100%;
     display: flex;
-    
-    div{
-      width:50px;
-      height:50px;
-      background:red;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(1, 1, 1, 0.1);
+    .post-message-box {
+      width: 5rem;
+      position: relative;
+      height: 5rem;
+      background: white;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      p {
+        width: 5rem;
+        position: absolute;
+        padding: 1rem;
+        bottom: -3rem;
+      }
+
+      div {
+        position: relative;
+        margin: 0 auto;
+        width: 3rem;
+        height: 3rem;
+        background: transparent;
+        border: 1px solid #212122;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 3rem;
+      }
+      // 发送中
+      .sending {
+        animation: sl 1.5s linear infinite;
+        -webkit-animation: sl 1.5s linear infinite;
+      }
+      .sending:after {
+        content: "";
+        display: block;
+        width: 0.5rem;
+        height: 0.5rem;
+        background: #212122;
+        border-radius: 50%;
+        position: absolute;
+        left: 0.8rem;
+        top: -0.15rem;
+      }
+      // 成功
+      .success {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #210122;
+        i {
+          font-size: 2rem;
+          color: #f44336;
+        }
+      }
+
+      .fail {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #210122;
+        i {
+          font-size: 2rem;
+          color: #212122;
+        }
+      }
+    }
+  }
+  @keyframes sl {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
     }
   }
 }

@@ -56,7 +56,7 @@ export default {
   methods: {
     test() {
       this.$store.dispatch("addTimeLine");
-    }
+    },
   },
   computed: {
     showTopBarBol() {
