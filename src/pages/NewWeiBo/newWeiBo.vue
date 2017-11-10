@@ -80,7 +80,9 @@ export default {
                 this.showMessageBox = false;
                 this.sendingBol = true;
                 this.successBol = false;
+                this.$router.go(-1)
               }, 1000);
+
             }
           },
           err => {

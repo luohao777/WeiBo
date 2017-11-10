@@ -7,8 +7,10 @@
 </template>
 
 <script>
-import slideBar from "@/components/slideBar/slideBar";
-import loginIn from "@/pages/LoginIn/loginIn";
+ 
+import slideBar from "@/components/slideBar/slideBar"
+import loginIn from "@/pages/LoginIn/loginIn"
+
 
 export default {
   created() {
@@ -84,7 +86,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  /* overflow: hidden; */
 }
 button {
   position: fixed;

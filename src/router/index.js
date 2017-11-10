@@ -4,6 +4,7 @@ import Home from '@/pages/home'
 import LoginIN from '@/pages/LoginIn/loginIn'
 import NewWeiBo from '@/pages/NewWeiBo/newWeiBo'
 import Comments from '@/pages/Comments'
+import Person from '@/pages/Person'
 import * as scrollUtils from '@/utils/scroll-position'
 
 Vue.use(Router)
@@ -30,6 +31,10 @@ const router = new Router({
       component: NewWeiBo
     },
     {
+        path:'/person',
+        component: Person
+    },
+    {
       path: '/comments/:userId',
       name: 'comments',
       component: Comments,
@@ -40,8 +45,9 @@ const router = new Router({
 let routerList = []
 console.log(routerList)
 
+
 router.beforeEach((to, from, next) => {
-  
+    // 记录屏幕位置
       let position = scrollUtils.getScrollTop()
       let currentRouterIndex = routerList.findIndex(e => {
           return e.path === from.fullPath

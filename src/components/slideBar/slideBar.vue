@@ -1,11 +1,12 @@
 <template>
-  <div class="slideBar"  :class="{'active1':showSlideBar}" @click="closeSlideBar">
-      <nav>
+  <v-touch class="slideBar"  v-show="showSlideBar" v-on:panstart="closeSlideBar" > 
+      <!-- :class="{'active1':showSlideBar}" -->
+      <nav @click="closeSlideBar" >
           <ul>
               <router-link to="new">
                 <i class="iconfont icon-xie"></i><span>新微博</span>
               </router-link>
-              <router-link to="">
+              <router-link to="person">
                 <i class="iconfont icon-user-copy"></i><span>个人主页</span>
                 </router-link>
               <router-link to="">
@@ -19,10 +20,12 @@
               </router-link>
           </ul>
       </nav>
-  </div>
+  </v-touch>
 </template>
 
 <script>
+
+
 export default {
   data() {
     return {
@@ -36,8 +39,8 @@ export default {
   },
   methods: {
     closeSlideBar() {
-      this.$store.commit("CHANGE_SLIDE_BAR_BOL");
-    }
+      this.$store.commit("CLOSE_SLIDE_BAR");
+    },
   }
 };
 </script>
@@ -50,11 +53,7 @@ export default {
   height: 92%;
   left: 0;
   z-index: 9999;
-  margin-left: -100%;
-  transition: all 0.3s;
-  -webkit-transition: all 0.3s;
   color: RGB(244, 67, 54);
-  background: red;
   nav {
     width: 50%;
     height: 100%;
@@ -88,7 +87,6 @@ export default {
         font-size: 1.1rem;
         text-align: left;
         background: white;
-        // box-shadow: 3px 10px 5px #cccccc;
         text-indent: 1rem;
         i {
           font-size: 1.5rem;
