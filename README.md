@@ -48,9 +48,6 @@ npm run build --report
 !!! Person界面 topbar展示头像和ID?
 
 
-
-
-
 ## ...
 
 ### OAuth2.0 授权
