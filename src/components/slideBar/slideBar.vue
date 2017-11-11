@@ -6,7 +6,7 @@
               <router-link to="new">
                 <i class="iconfont icon-xie"></i><span>新微博</span>
               </router-link>
-              <router-link to="person">
+              <router-link to="mine">
                 <i class="iconfont icon-user-copy"></i><span>个人主页</span>
                 </router-link>
               <router-link to="">

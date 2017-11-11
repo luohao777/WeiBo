@@ -23,8 +23,8 @@ export default {
   GET_ACCESS_TOKEN(state, data){
     state.userAccessToken = data
   },
-  ADD_COOKIE (state,data){
-    state.cookie = data
+  ADD_LOGIN_INFO (state,data){
+    state.loginInfo = data
   },
   REFRESH ( state, data){
     state.homeTimeLine = []
@@ -33,5 +33,8 @@ export default {
   ADD_COMMENTS (state,data) {
     console.log(data)
     state.comments = data
+  },
+  GET_PERSON_INFO (state,data){
+    state.userInfo = data
   }
 }

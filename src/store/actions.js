@@ -10,6 +10,25 @@ export default {
             commit("GET_TOKEN_URL", res.data)
         })
     },
+    // 获取用户信息
+    getUserInfo ({ commit ,state }) {
+        let user,url,param
+        if(state.testModel){
+            user = api.USERS[1]
+        } else {
+            user = state.loginInfo
+        }
+        param = "?uid=" + user.uid + "&access_token=" + user.access_token
+        url = api.HOST_CONFIG.host+api.API_ROUTER_CONFIG.userinfo + param
+        jsonp(url, null, (err, data)=>{
+            if(err){
+                console.log(err)
+            } else {
+                console.log(data.data)
+                commit("GET_PERSON_INFO",data.data)
+            }
+        })
+    },
     // 通过上一个函数返回的URL请求token
     loginIn ({ state, commit }) {
         let url = state.getTokenUrl
@@ -17,14 +36,15 @@ export default {
     },
     // 获取主页时间线, 将数据并入store中timeLine
     addTimeLine({ state, commit }) {
-        let user, url
+        let user, url,param
         if (state.testModel) {
             // 测试模式下使用
             user = api.USERS[1]
         } else {
-            user = state.cookie
+            user = state.loginInfo
         }
-        url = api.HOST_CONFIG.host + api.API_ROUTER_CONFIG.home_timeline + "?uid=" + user.uid + "&access_token=" + user.access_token + "&page=" + state.page
+        param = "?uid=" + user.uid + "&access_token=" + user.access_token + "&page=" + state.page
+        url = api.HOST_CONFIG.host + api.API_ROUTER_CONFIG.home_timeline + param
         commit("ADD_PAGE")
         jsonp(url, null, function (err, data) {
             if (err) {
@@ -35,6 +55,7 @@ export default {
             }
         })
     },
+    // 刷新
     refresh ({ state, commit }) {
         commit("REFRESH")
     },
@@ -45,7 +66,7 @@ export default {
             // 测试模式下使用
             user = api.USERS[0]
         } else {
-            user = state.cookie
+            user = state.loginInfo
         }
         url = api.HOST_CONFIG.host + api.API_ROUTER_CONFIG.content_comments +  "?access_token=" + user.access_token+"&id="+id
 

@@ -4,7 +4,7 @@ import Home from '@/pages/home'
 import LoginIN from '@/pages/LoginIn/loginIn'
 import NewWeiBo from '@/pages/NewWeiBo/newWeiBo'
 import Comments from '@/pages/Comments'
-import Person from '@/pages/Person'
+import Mine from '@/pages/mine'
 import * as scrollUtils from '@/utils/scroll-position'
 
 Vue.use(Router)
@@ -31,8 +31,8 @@ const router = new Router({
       component: NewWeiBo
     },
     {
-        path:'/person',
-        component: Person
+        path:'/mine',
+        component: Mine
     },
     {
       path: '/comments/:userId',

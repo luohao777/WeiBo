@@ -7,7 +7,6 @@
       <div class="wb_text">{{item.text}}</div>
       <!-- 主微博图片 -->
       <pictures :imgs="item.pic_urls" :singlePicture="item.thumbnail_pic" />
-
       <!-- 转发 -->
       <div class="wb_transpond" v-if="item.retweeted_status">
         <!-- 转发内容 -->

@@ -42,7 +42,7 @@ export default {
         }
       }
       // 添加到登录信息到vuex
-      this.$store.commit("ADD_COOKIE", info);
+      this.$store.commit("ADD_LOGIN_INFO", info);
 
       // 获取微博主页数据
       this.$store.dispatch("addTimeLine");
