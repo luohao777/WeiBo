@@ -55,7 +55,6 @@ export const comments_destroy = (status, okCallback, errorCallback) => {
         })
 }
 
-
 export const favorites_create = (status, okCallback, errorCallback) => {
     // 收藏一条微博
     let url = HOST_CONFIG.sendHost + "method=favorites_create" + "&id=" + status.id

@@ -1,62 +1,94 @@
-<template>
-  <!-- <div class="home" v-if="homeTimelineData" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10"> -->
-  <div class="home" v-if="homeTimelineData">
-    <top-bar/>
-                <micro-blog :wbList="list"/>
+<template>  
+<div class="wb">    
+    <div class=" wb_wrap" v-for="(item,index) in wbList" :key="index">
+      <!-- 主微博文本内容 -->
+      <div class="wb_text">{{item.text}}</div>
+      <!-- 主微博图片 -->
+      <pictures v-if="item.pic_urls" :imgs="item.pic_urls" :singlePicture="item.thumbnail_pic" />
+      <!-- 转发 -->
+      <div class="wb_transpond" v-if="item.retweeted_status">
+        <!-- 转发内容 -->
+        <p class="wb_text">{{item.retweeted_status.text}}</p>
+        <!-- 转发图片 -->
+        <pictures v-if="item.retweeted_status.pic_urls" :imgs="item.retweeted_status.pic_urls" :singlePicture="item.retweeted_status.thumbnail_pic" />
+        <!-- 被转发的用户信息 -->
+        <div class="wb_transpondInfo">
+          <i class="iconfont icon-zhuanfa01"></i>
+          <span>自&nbsp;</span>
+          <span>{{item.retweeted_status.user.name}}</span>
+          <img :src="item.retweeted_status.user.profile_image_url" alt="">
+        </div>
+      </div>
+      <!-- 个人信息 -->
+      <div class="wb_info">
+        <div class="wb_left">
+          <img :src="item.user.profile_image_url" alt="">
+        </div>
+        <div class="wb_right">
+          <p class="wb_created_at">
+            {{computedTime(item.created_at)}}
+          </p>
+          <p class="wb_user">
+            {{item.user.name}}
+          </p>
+        </div>
+      </div>
+      <!-- 工具栏 -->
+      <div class="wb_feed_handle">
+        <div>
+          <i class="iconfont icon-zhuanfa01">
+          </i>
+          <span>{{item.attitudes_count}}</span>
+        </div>
 
-    <div class="loading" v-if="loading">
-      <div>
-        <div></div>
+        <router-link :to="URL(item.id)" >
+          <i class="iconfont icon-pinglun"></i>
+          <span>{{item.comments_count}}</span>
+        </router-link>
+        <div>
+          <i class="iconfont icon-aixin">
+          </i>
+          <span>{{item.attitudes_count}}</span>
+        </div>
       </div>
     </div>
-  </div>
+</div>
+
 </template>
+
 <script>
-import topBar from "@/components/topBar";
-import pictures from "@/components/Pictures/pictures";
-import InfiniteLoading from "vue-infinite-loading";
+import pictures from "../Pictures/pictures";
 import { time } from "@/utils/time-utils";
-import microBlog from '@/components/MicroBlog/microBlog'
+
+
 
 export default {
-  data () {
-    return {
-      list: [],
-      loading: false
-    };
-  },
-  methods: {
-    computedTime(createTime) {
-      return time(createTime);
+    created () {
+        console.log(this.wbList)
     },
-    loadMore() {
-      console.log("1");
-      this.loading = true;
-      setTimeout(() => {
-        this.$store.dispatch("addTimeLine");
-        this.loading = false;
-      }, 1000);
-    },
-    URL(id) {
-      return "/comments/" + id;
-    }
-  },
-  computed: {
-    homeTimelineData() {
-      this.list = this.$store.state.homeTimeLine;
-      return this.$store.state.homeTimeLine;
-    }
+  props: {
+    wbList: Array
   },
   components: {
-    pictures,
-    topBar,
-    microBlog
+    pictures
+  },
+  methods : {
+    computedTime(createTime) {
+      return time(createTime);
+   },
+     URL(id) {
+      return "/comments/" + id;
+    }
+
+
+
   }
+
 };
 </script>
 
-<style lang="less" socped>
-.home {
+<style lang="less" scoped>
+.wb {
   width: 100%;
   background-color: #efefef;
   padding-top: 12%;
@@ -150,45 +182,6 @@ export default {
     }
   }
 }
-
-.home::-webkit-scrollbar {
-  display: none;
-}
-
-@keyframes sl {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-.loading {
-  width: 100%;
-  height: 3rem;
-  text-align: center;
-  padding-top: 1rem;
-  div {
-    position: relative;
-    margin: 0 auto;
-    width: 1.5rem;
-    height: 1.5rem;
-    background: transparent;
-    border: 1px solid #212122;
-    border-radius: 50%;
-    animation: sl 1.5s linear infinite;
-    -webkit-animation: sl 1.5s linear infinite;
-    text-align: center;
-    line-height: 3rem;
-    div {
-      width: 0.3rem;
-      height: 0.3rem;
-      background: #727272;
-      border-radius: 50%;
-      position: absolute;
-      left: 0.6rem;
-      top: -0.21rem;
-    }
-  }
-}
 </style>
+
+
