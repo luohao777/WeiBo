@@ -5,13 +5,14 @@ import jsonp from 'jsonp'
 export default {
     // 获取 请求token 的URL
     getTokenUrl ({ commit }) {
-        let url = 'http://sureinternet.applinzi.com/getcode.php'
+        let url = 'http://surfinternet.applinzi.com/getcode.php'
         http.get(url).then(res => {
             commit("GET_TOKEN_URL", res.data)
         })
     },
     // 获取用户信息
     getUserInfo ({ commit ,state }) {
+        console.log(1)
         let user,url,param
         if(state.testModel){
             user = api.USERS[1]

@@ -29,38 +29,28 @@
           <span>收藏</span>
           <span>({{userInfo.favourites_count}})</span>
         </div>
+        <div class="level">
+            <i class="iconfont icon-shoucang-copy"></i>
+          <span>微博等级</span>
+          <span>22</span>
+        </div>
       </div>
-    <input type="color">
     </div>
   </div>
 </template>
 
 <script>
-import microBlog from '../../components/MicroBlog/microBlog'
 
 export default {
   created() {
     // 获取个人信息
     this.$store.dispatch("getUserInfo");
   },
-  data () {
-      return {
-          
-      }
-  },
   computed: {
     userInfo() {
       return this.$store.state.userInfo;
     },
-    wbList () {
-        let arr = [this.$store.state.userInfo.status]
-        return arr
-    }
-    
   },
-  components:{
-      microBlog
-  }
 };
 </script>
 

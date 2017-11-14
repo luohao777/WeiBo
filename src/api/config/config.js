@@ -1,7 +1,7 @@
 const app_key = {
     appKey: 1081182036,
     appSecret: '8d3f9fc1408f7b78c781c5e659b45e23',
-    redirect_uri: 'http://sureinternet.applinzi.com/callback.php'
+    redirect_uri: 'http://surfinternet.applinzi.com/callback.php'
 }
 
 const users = [
@@ -19,7 +19,7 @@ const users = [
 
 const host_config = {
     local: 'http://192.168.191.1:8080/',
-    sendHost: 'http://sureinternet.applinzi.com/send.php?',
+    sendHost: 'http://surfinternet.applinzi.com/send.php?',
     host:'https://api.weibo.com/2',
     oauth: 'https://open.weibo.cn/oauth2/authorize/'
 }

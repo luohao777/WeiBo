@@ -35,6 +35,7 @@ export default {
     state.comments = data
   },
   GET_PERSON_INFO (state,data){
+    console.log(data)
     state.userInfo = data
   }
 }

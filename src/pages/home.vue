@@ -2,8 +2,7 @@
   <!-- <div class="home" v-if="homeTimelineData" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10"> -->
   <div class="home" v-if="homeTimelineData">
     <top-bar/>
-                <micro-blog :wbList="list"/>
-
+    <micro-blog :wbList="list"/>
     <div class="loading" v-if="loading">
       <div>
         <div></div>
@@ -13,9 +12,7 @@
 </template>
 <script>
 import topBar from "@/components/topBar";
-import pictures from "@/components/Pictures/pictures";
 import InfiniteLoading from "vue-infinite-loading";
-import { time } from "@/utils/time-utils";
 import microBlog from '@/components/MicroBlog/microBlog'
 
 export default {
@@ -26,19 +23,12 @@ export default {
     };
   },
   methods: {
-    computedTime(createTime) {
-      return time(createTime);
-    },
     loadMore() {
-      console.log("1");
       this.loading = true;
       setTimeout(() => {
         this.$store.dispatch("addTimeLine");
         this.loading = false;
       }, 1000);
-    },
-    URL(id) {
-      return "/comments/" + id;
     }
   },
   computed: {
@@ -48,7 +38,6 @@ export default {
     }
   },
   components: {
-    pictures,
     topBar,
     microBlog
   }
@@ -59,96 +48,9 @@ export default {
 .home {
   width: 100%;
   background-color: #efefef;
-  padding-top: 12%;
+  padding-top: 10%;
   background-origin: content-box;
   box-sizing: border-box;
-  .wb_wrap {
-    position: relative;
-    max-width: 765px;
-    margin: 1rem auto;
-    width: 100%;
-    min-width: 320px;
-    padding: 2rem;
-    box-sizing: border-box;
-    background: white;
-    text-align: left;
-    padding-bottom: 1rem;
-    border-radius: 2px;
-    font-size: 0.9rem;
-    box-shadow: 5px -1px 5px rgba(160, 154, 154, 0.2);
-    .wb_text {
-      line-height: 1.5rem;
-      color: #212122;
-      overflow: hidden;
-      letter-spacing: 0.5px;
-      padding: 1rem 0.6rem;
-    }
-    .wb_transpond {
-      box-sizing: border-box;
-      width: 100%;
-      background: rgba(247, 247, 247, 0.5);
-      line-height: 1.5rem;
-      padding: 1rem 1.5rem;
-      .wb_transpondInfo {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        padding: 0.5rem;
-        box-sizing: border-box;
-        i {
-          color: #f44336;
-          font-size: 1.5rem;
-          margin-right: 0.8rem;
-        }
-        img {
-          margin-left: 0.8rem;
-          border-radius: 50%;
-          width: 2.3rem;
-          height: 2.3rem;
-        }
-      }
-    }
-    .wb_info {
-      margin-top: 0.8rem;
-      margin-left: -0.4rem;
-      .wb_left {
-        width: 3rem;
-        height: 3rem;
-        border-radius: 50%;
-        overflow: hidden;
-        display: inline-block;
-        vertical-align: middle;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-      }
-      .wb_right {
-        display: inline-block;
-        padding-left: 0.5rem;
-        height: 3rem;
-        line-height: 3rem;
-        vertical-align: middle;
-        p {
-          height: 1.5rem;
-          line-height: 1.5rem;
-        }
-        p:nth-child(1) {
-          color: #bfbcbc;
-          font-weight: lighter;
-          font-size: 0.8rem;
-        }
-      }
-    }
-    .wb_feed_handle {
-      position: absolute;
-      bottom: 3rem;
-      right: 1.3rem;
-      div {
-        display: inline-block;
-        .icon-aixin {
-          color: #f44336;
-        }
-      }
-    }
-  }
 }
 
 .home::-webkit-scrollbar {
