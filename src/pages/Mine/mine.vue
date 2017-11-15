@@ -23,16 +23,20 @@
           <p>{{userInfo.statuses_count}}</p>
         </div>
       </div>
-      <div class="myLove">
+      <div class="other">
         <div class="favourites">
-            <i class="iconfont icon-shoucang-copy"></i>
+            <i class="iconfont icon-icon-"></i>
           <span>收藏</span>
           <span>({{userInfo.favourites_count}})</span>
         </div>
         <div class="level">
-            <i class="iconfont icon-shoucang-copy"></i>
+            <i class="iconfont icon-icon-1"></i>
           <span>微博等级</span>
-          <span>22</span>
+          <span>Lv{{userInfo.urank}}</span>
+        </div>
+        <div class="setting">
+            <i class="iconfont icon-shezhi"></i>
+          <span>设置</span>
         </div>
       </div>
     </div>
@@ -63,7 +67,7 @@ export default {
     .avatar {
       width: 100%;
       padding: 3rem 0 2rem 0;
-      background: url("./3.jpg") no-repeat top center;
+      background: url("./4.jpeg") no-repeat top center;
       background-size: 100% auto;
       div {
         margin: 0 auto;
@@ -108,7 +112,7 @@ export default {
         border: none;
       }
     }
-    .myLove {
+    .other {
       div {
         width: 100%;
         text-align: left;
@@ -124,13 +128,12 @@ export default {
         align-items: center;
         box-sizing: border-box;
         i {
-          font-size: 2rem;
+          font-size: 1.6rem;
           color: #f44336;
         }
         span{
           display: ceil;
         }
-        
       }
     }
   }
