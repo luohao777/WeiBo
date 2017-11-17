@@ -54,6 +54,7 @@ const api_router_config = {
     my_friend: '/friendships/friends.json',
     //短链接解析接口
     short_expend: '/short_url/expand.json'
+    
 }
 
 

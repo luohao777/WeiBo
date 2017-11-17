@@ -34,10 +34,6 @@
           <span>微博等级</span>
           <span>Lv{{userInfo.urank}}</span>
         </div>
-        <div class="setting">
-            <i class="iconfont icon-shezhi"></i>
-          <span>设置</span>
-        </div>
       </div>
     </div>
   </div>
@@ -67,8 +63,8 @@ export default {
     .avatar {
       width: 100%;
       padding: 3rem 0 2rem 0;
-      background: url("./4.jpeg") no-repeat top center;
-      background-size: 100% auto;
+      background: url("./4.jpeg");
+      background-size: 100%  auto;
       div {
         margin: 0 auto;
         width: 6rem;

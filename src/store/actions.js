@@ -1,6 +1,7 @@
 import http from 'axios'
 import * as api from '@/api/config/config'
 import jsonp from 'jsonp'
+import * as getInfo from '../api/request/get_info'
 
 export default {
     // 获取 请求token 的URL
@@ -12,7 +13,6 @@ export default {
     },
     // 获取用户信息
     getUserInfo ({ commit ,state }) {
-        console.log(1)
         let user,url,param
         if(state.testModel){
             user = api.USERS[1]
@@ -21,7 +21,7 @@ export default {
         }
         param = "?uid=" + user.uid + "&access_token=" + user.access_token
         url = api.HOST_CONFIG.host+api.API_ROUTER_CONFIG.userinfo + param
-        jsonp(url, null, (err, data)=>{
+        jsonp(url, null, (err, data) => {
             if(err){
                 console.log(err)
             } else {
@@ -80,5 +80,27 @@ export default {
             }       
         })
     },
+    getLongUrl ({ state , commit },shortUrls) {
+        // getInfo.exportShort(urls,commit)
+        let user = api.USERS[1]
+        let url = api.HOST_CONFIG.host + api.API_ROUTER_CONFIG.short_expend
+        let param ='?access_token=' + user['access_token']
+        for(let item of shortUrls){
+            param +='&url_short=' + encodeURIComponent(item)
+        }
+        console.log("it run!")
+    
+        jsonp(url+param,null,function(err,data) {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log(data.data)
+                
+            }
+        })
+    
+
+    }
+    
 }
 

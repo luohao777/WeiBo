@@ -2,9 +2,10 @@
 <div class="wb">    
     <div class=" wb_wrap" v-for="(item,index) in wbList" :key="index">
       <!-- 主微博文本内容 -->
-      <div class="wb_text">{{item.text}}</div>
+      <div class="wb_text" >{{shortUrl(item.text)}}</div>
       <!-- 主微博图片 -->
       <pictures v-if="item.pic_urls" :imgs="item.pic_urls" :singlePicture="item.thumbnail_pic" />
+      
       <!-- 转发 -->
       <div class="wb_transpond" v-if="item.retweeted_status">
         <!-- 转发内容 -->
@@ -59,16 +60,27 @@
 <script>
 import pictures from "../Pictures/pictures";
 import { time } from "@/utils/time-utils";
-
+import { exportShort } from '@/api/request/get_info'
 
 
 export default {
-    created () {
-        console.log(this.wbList)
-    },
-  props: {
+    props: {
     wbList: Array
   },
+    beforeUpdate () {
+        // 当wblist传进来时，抓取短连接
+        let reg =/http:\/\/t\.cn\/\w{7}/gi
+        let urls= []
+        for( let item of this.wbList ){
+            let arr = item.text.match(reg)
+            if( arr ){
+                urls.push( ...arr)
+            }
+        }
+        this.$store.dispatch("getLongUrl",urls)
+
+    },
+  
   components: {
     pictures
   },
@@ -78,12 +90,14 @@ export default {
    },
      URL(id) {
       return "/comments/" + id;
+    },
+    shortUrl ( text ) {
+        let reg =/http:\/\/t\.cn\/\w{7}/gi;
+        let sUrl = text.match(reg)
+       
+        return text
     }
-
-
-
   }
-
 };
 </script>
 
