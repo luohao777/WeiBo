@@ -6,17 +6,19 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import store from './store'
-import MintUI from 'mint-ui'
+import VueTouch from 'vue-touch'
+import { InfiniteScroll  } from 'mint-ui'
+import 'iview/dist/styles/iview.css';
+import { Input } from 'iview';
+
 import 'mint-ui/lib/style.css'
-import { Lazyload } from 'mint-ui'
 import './assets/base.css'
 import './assets/css/iconfont.css'
-import VueTouch from 'vue-touch'
-import { InfiniteScroll } from 'mint-ui'
 
-Vue.use(InfiniteScroll)
+Vue.component('Input',Input);
+
 Vue.use(VueTouch, {name: 'v-touch'})
-Vue.use(Lazyload)
+Vue.use(InfiniteScroll)
 
 
 Vue.prototype.$http = axios

@@ -2,7 +2,7 @@
 <div class="wb">    
     <div class=" wb_wrap" v-for="(item,index) in wbList" :key="index">
       <!-- 主微博文本内容 -->
-      <div class="wb_text" >{{shortUrl(item.text)}}</div>
+      <div class="wb_text" >{{item.text}}</div>
       <!-- 主微博图片 -->
       <pictures v-if="item.pic_urls" :imgs="item.pic_urls" :singlePicture="item.thumbnail_pic" />
       
@@ -58,6 +58,7 @@
 </template>
 
 <script>
+
 import pictures from "../Pictures/pictures";
 import { time } from "@/utils/time-utils";
 import { exportShort } from '@/api/request/get_info'
@@ -66,21 +67,7 @@ import { exportShort } from '@/api/request/get_info'
 export default {
     props: {
     wbList: Array
-  },
-    beforeUpdate () {
-        // 当wblist传进来时，抓取短连接
-        let reg =/http:\/\/t\.cn\/\w{7}/gi
-        let urls= []
-        for( let item of this.wbList ){
-            let arr = item.text.match(reg)
-            if( arr ){
-                urls.push( ...arr)
-            }
-        }
-        this.$store.dispatch("getLongUrl",urls)
-
-    },
-  
+  },  
   components: {
     pictures
   },
@@ -91,12 +78,7 @@ export default {
      URL(id) {
       return "/comments/" + id;
     },
-    shortUrl ( text ) {
-        let reg =/http:\/\/t\.cn\/\w{7}/gi;
-        let sUrl = text.match(reg)
-       
-        return text
-    }
+
   }
 };
 </script>
@@ -114,7 +96,7 @@ export default {
     margin: 1rem auto;
     width: 100%;
     min-width: 320px;
-    padding: 2rem;
+    padding: 1.5rem;
     box-sizing: border-box;
     background: white;
     text-align: left;
@@ -134,7 +116,7 @@ export default {
       width: 100%;
       background: rgba(247, 247, 247, 0.5);
       line-height: 1.5rem;
-      padding: 1rem 1.5rem;
+      padding: 1rem 1rem;
       .wb_transpondInfo {
         display: flex;
         justify-content: flex-end;

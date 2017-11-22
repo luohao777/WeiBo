@@ -80,27 +80,6 @@ export default {
             }       
         })
     },
-    getLongUrl ({ state , commit },shortUrls) {
-        // getInfo.exportShort(urls,commit)
-        let user = api.USERS[1]
-        let url = api.HOST_CONFIG.host + api.API_ROUTER_CONFIG.short_expend
-        let param ='?access_token=' + user['access_token']
-        for(let item of shortUrls){
-            param +='&url_short=' + encodeURIComponent(item)
-        }
-        console.log("it run!")
-    
-        jsonp(url+param,null,function(err,data) {
-            if (err) {
-                console.log(err)
-            } else {
-                console.log(data.data)
-                
-            }
-        })
-    
-
-    }
     
 }
 

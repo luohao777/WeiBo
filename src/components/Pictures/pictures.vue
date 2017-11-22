@@ -1,26 +1,24 @@
 <template>
   <div class="wb_img">
     <ul class="clearFix">
-      <li v-for='(item,index) in imgs' :key="item.id" @click="toEnlarge(index)">
+      <li v-for='(item,index) in imgs' :key="item.id" >
+          imgs
         <img :src="changeImg(item.thumbnail_pic)" alt="">
-        <!-- <img v-for="img in imgs" v-preview="img" :src="img.thumbnail_pic" :key="img.index"> -->
       </li>
     </ul>
 
-    <div class="imgWrap" v-show="showLarge" @click="close">
+    <!-- <div class="imgWrap" v-show="showLarge" @click="close">
       <div class="imgView">
         <v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight" :ref="'myBox'" :style='objLeft'>
-          <img v-for="img in largeImg" :key="img.id" :style="{width}" v-lazy="img" alt="" :width="x">
+          <img v-for="img in largeImg" :key="img.id" :style="{width}"  alt="">
         </v-touch>
       </div>
-    </div>
+    </div> -->
   </div>
 
 </template>
 <script>
-let x = document.body.offsetwidth;
-console.log(x)
-let y = document.body.offsetHeight;
+
 export default {
   props: ["imgs"],
   data() {
@@ -28,8 +26,6 @@ export default {
       urls: this.imgs,
       showLarge: false,
       largeImg: [],
-      x,
-      width: x + "px",
       objLeft: {
         left: 0
       }

@@ -48,7 +48,6 @@ export default {
       this.$store.dispatch("addTimeLine");
     } else {
       // this.$store.dispatch("addTimeLine");
-      console.log(window.screenWidth);
     }
   },
   components: {

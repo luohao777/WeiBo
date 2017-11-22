@@ -56,7 +56,13 @@
 	  </div>
 	</div>
 
-	<!-- 评论 -->
+    <!-- 发表评论 -->
+    <div class="reply">
+    <Input  type="textarea" placeholder="Enter something..."></Input>
+
+    </div>
+
+	<!-- 所有评论 -->
 	<div class="comments-wrap" v-if="comments">
 	  <div v-for="(item,index) in comments.comments" :key="index" class="comment">
 		<div class="wb_info">
@@ -77,6 +83,9 @@
 		</p>
 	  </div>
 	</div>
+    <div v-else  class="comments-wrap">
+        还没有评论，抢个沙发吧
+    </div>
   </div>
 </template>
 
@@ -265,4 +274,6 @@ export default {
 	}
   }
 }
+
+
 </style>
