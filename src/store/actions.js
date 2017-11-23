@@ -33,7 +33,11 @@ export default {
     // 通过上一个函数返回的URL请求token
     loginIn ({ state, commit }) {
         let url = state.getTokenUrl
-        window.location.href = url
+        if (!url){
+            alert("网络错误，请重试")
+        } else {
+            window.location.replace = url            
+        }
     },
     // 获取主页时间线, 将数据并入store中timeLine
     addTimeLine({ state, commit }) {

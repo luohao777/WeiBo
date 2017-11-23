@@ -1,5 +1,7 @@
 <template>
+<!-- 测试模式下注释此行 -->
   <!-- <div class="home" v-if="homeTimelineData" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10"> -->
+      <!-- 测试模式下注释此行-->
   <div class="home" v-if="homeTimelineData">
     <top-bar/>
     <micro-blog :wbList="list"/>
@@ -23,6 +25,7 @@ export default {
     };
   },
   methods: {
+      // 到底部自动请求timeline接口，增加timelineList数据
     loadMore() {
       this.loading = true;
       setTimeout(() => {

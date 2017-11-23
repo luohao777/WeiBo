@@ -19,7 +19,7 @@ npm run build
 npm run build --report
 ```
 
-
+点击小图把urls传到Vuex，跳转到图片界面
 
 ## TODO
 

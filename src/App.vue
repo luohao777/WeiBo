@@ -3,6 +3,7 @@
       <slide-bar/>
       <router-view></router-view>      
       <button @click="test">测试</button> 
+
   </div>
 </template>
 
@@ -10,7 +11,6 @@
  
 import slideBar from "@/components/slideBar/slideBar"
 import loginIn from "@/pages/LoginIn/loginIn"
-
 
 export default {
   created() {
@@ -40,7 +40,7 @@ export default {
           let arr1 = item.split(reg);
           info[arr1[0]] = arr1[1];
         }
-      }
+      }vuePushyButtons
       // 添加到登录信息到vuex
       this.$store.commit("ADD_LOGIN_INFO", info);
 
@@ -52,7 +52,7 @@ export default {
   },
   components: {
     slideBar,
-    loginIn
+    loginIn,
   },
   methods: {
     test() {
@@ -81,6 +81,7 @@ body {
   height: 100%;
   min-width: 320px;
   position: relative;
+  background: #efefef;
   font-family: "微软雅黑", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -1,12 +1,10 @@
 <template>
   <div class="wb_img">
     <ul class="clearFix">
-      <li v-for='(item,index) in imgs' :key="item.id" >
-          imgs
+      <li v-for='(item,index) in imgs' :key="item.id" @click="openLargeImg(imgs,index)">
         <img :src="changeImg(item.thumbnail_pic)" alt="">
       </li>
     </ul>
-
     <!-- <div class="imgWrap" v-show="showLarge" @click="close">
       <div class="imgView">
         <v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight" :ref="'myBox'" :style='objLeft'>

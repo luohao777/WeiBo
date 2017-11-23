@@ -3,6 +3,7 @@
         <div class="wrap">
             <h1>微博</h1>
             <p @click="loginIn">
+
               <i class="iconfont icon-weibo"></i> 登录
              </p>
             <router-link class="close" to="home">

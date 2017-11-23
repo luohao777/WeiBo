@@ -58,7 +58,6 @@
 
     <!-- 发表评论 -->
     <div class="reply">
-    <Input  type="textarea" placeholder="Enter something..."></Input>
 
     </div>
 

@@ -5,6 +5,7 @@ import LoginIN from '@/pages/LoginIn/loginIn'
 import NewWeiBo from '@/pages/NewWeiBo/newWeiBo'
 import Comments from '@/pages/Comments'
 import Mine from '@/pages/Mine/mine'
+import LargePIc from '@/pages/LargePic/largePic'
 import * as scrollUtils from '@/utils/scroll-position'
 
 Vue.use(Router)
@@ -38,13 +39,15 @@ const router = new Router({
       path: '/comments/:userId',
       name: 'comments',
       component: Comments,
+    },
+    {
+        path: '/largePIc',
+        component: LargePIc
     }
   ]
 })
 
 let routerList = []
-console.log(routerList)
-
 
 router.beforeEach((to, from, next) => {
     // 记录屏幕位置
