@@ -1,5 +1,5 @@
 <template>
-  <v-touch class="slideBar"  v-show="showSlideBar" v-on:panstart="closeSlideBar" > 
+  <v-touch class="slideBar"  v-show="showSlideBar" v-on:panstart="closeSlideBar" >
       <!-- :class="{'active1':showSlideBar}" -->
       <nav @click="closeSlideBar" >
           <ul>
@@ -13,7 +13,7 @@
                 <i class="iconfont icon-sousuo"></i><span>搜索</span>
               </router-link>
               <router-link to="">
-                <i class="iconfont icon-shezhi"></i><span>设置 </span>  
+                <i class="iconfont icon-shezhi"></i><span>设置 </span>
               </router-link>
               <router-link to="">
                  <i class="iconfont icon-tuichu"></i><span>退出</span>
@@ -52,7 +52,7 @@ export default {
   width: 100%;
   height: 92%;
   left: 0;
-  z-index: 9999;
+  z-index: 999;
   color: RGB(244, 67, 54);
   nav {
     width: 50%;

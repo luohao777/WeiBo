@@ -5,8 +5,10 @@ import LoginIN from '@/pages/LoginIn/loginIn'
 import NewWeiBo from '@/pages/NewWeiBo/newWeiBo'
 import Comments from '@/pages/Comments'
 import Mine from '@/pages/Mine/mine'
-import LargePIc from '@/pages/LargePic/largePic'
+import showImg from '@/pages/showImg/showImg'
 import * as scrollUtils from '@/utils/scroll-position'
+
+import store from '@/store'
 
 Vue.use(Router)
 
@@ -34,15 +36,15 @@ const router = new Router({
     {
         path:'/mine',
         component: Mine
-    },  
+    },
     {
       path: '/comments/:userId',
       name: 'comments',
       component: Comments,
     },
     {
-        path: '/largePIc',
-        component: LargePIc
+        path: '/showImg',
+        component: showImg
     }
   ]
 })
@@ -55,7 +57,7 @@ router.beforeEach((to, from, next) => {
       let currentRouterIndex = routerList.findIndex(e => {
           return e.path === from.fullPath
       })
-  
+
       if (currentRouterIndex != -1) {
           routerList[currentRouterIndex].position = position
       } else {
@@ -71,7 +73,7 @@ router.beforeEach((to, from, next) => {
         let savedPosition = routerList.find(e => {
             return e.path === to.fullPath
         })
-    
+
         if (typeof savedPosition !== 'undefined') {
             Vue.nextTick(() => {
                 scrollUtils.setScrollTop(savedPosition.position)
@@ -82,8 +84,8 @@ router.beforeEach((to, from, next) => {
             })
         }
     })
-    
-  
+
+
 export default router
 
 

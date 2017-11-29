@@ -1,136 +1,111 @@
 <template>
-  <div class="wb_img">
+  <div class="wb_img clearFix">
     <ul class="clearFix">
-      <li v-for='(item,index) in imgs' :key="item.id" @click="openLargeImg(imgs,index)">
-        <img :src="changeImg(item.thumbnail_pic)" alt="">
+      <li v-for='(item,index) in imgArr' :key="item.id">
+        <div @click="toShowImg(index)" :class="[{'wide_in_high':(item.width>=item.height), 'tall_in_wide':(item.width<item.height)}]">
+            <img v-lazy="item.src">
+        </div>
       </li>
     </ul>
-    <!-- <div class="imgWrap" v-show="showLarge" @click="close">
-      <div class="imgView">
-        <v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight" :ref="'myBox'" :style='objLeft'>
-          <img v-for="img in largeImg" :key="img.id" :style="{width}"  alt="">
-        </v-touch>
-      </div>
-    </div> -->
   </div>
 
 </template>
 <script>
-
-export default {
-  props: ["imgs"],
-  data() {
-    return {
-      urls: this.imgs,
-      showLarge: false,
-      largeImg: [],
-      objLeft: {
-        left: 0
+  export default {
+    props: ["imgs"],
+      beforeRouteLeave: (to, from, next) => {
+      // ...
+      console.log("%c%s", "color:red","store : " + this.$store.state.showImgArr); //undefined 
+      
+    },
+    created() {
+      let arr = this.imgs
+      for (let item of arr) {
+        let imgObj = new Image()
+        let newUrl = this._changeImgUrl(item.thumbnail_pic)
+        imgObj.src = item.thumbnail_pic
+        this.imgArr.push(imgObj)
+        this.urlArr.push(newUrl)
       }
-    };
-  },
-  methods: {
-    // 打开大图页面
-    toEnlarge(index) {
-      this.showLarge = true;
-      this.objLeft.left = -index * this.x + "px";
-      if (this.largeImg) {
-        // 将小图url换成中图Url
-        for (let item of this.imgs) {
-          let reg = /thumbnail/gi;
-          let a = item.thumbnail_pic;
-          let url = a.replace(reg, "bmiddle");
-          this.largeImg.push(url);
+    },
+    data() {
+      return {
+        imgArr: [],
+        urlArr: []
+      }
+    },
+    methods: {
+      // 左滑移动
+      onSwipeLeft() {
+        let post = this.$refs.myBox.$el.getBoundingClientRect();
+        if (post.x > -((this.largeImg.length - 1) * this.x)) {
+          this.objLeft.left = post.x - this.x + "px"
         }
+      },
+      // 右滑移动
+      onSwipeRight() {
+        console.log(1)
+        let post = this.$refs.myBox.$el.getBoundingClientRect();
+        if (post.x < 0) {
+          this.objLeft.left = post.x + this.x + "px"
+        }
+      },
+      _changeImgUrl(url) {
+        let reg = /thumbnail/gi;
+        return url.replace(reg, "bmiddle");
+      },
+      toShowImg(index) {
+        
+        this.$store.commit('ADD_IMGS', {
+          'imgs': this.urlArr,
+          'index': index
+        })
+        this.$router.push('/showImg')
       }
     },
-    //关闭大图界面
-    close() {
-      this.showLarge = false;
-    },
-    // 左滑移动
-    onSwipeLeft() {
-     
-      let post = this.$refs.myBox.$el.getBoundingClientRect();
-      if (post.x > -((this.largeImg.length - 1) * this.x)) {
-        this.objLeft.left = post.x - this.x + "px";
-      }
-    },
-    // 右滑移动
-    onSwipeRight() {
-      console.log(1)
-      let post = this.$refs.myBox.$el.getBoundingClientRect();
-      if (post.x < 0) {
-        this.objLeft.left = post.x + this.x + "px";
-      }
-    },
-    changeImg(url) {
-      let reg = /thumbnail/gi;
-      return url.replace(reg, "bmiddle");
+    beforeRouteLeave: (to, from, next) => {
+      console.log(this.$store.state)
+      
     }
+  }
 
-  },
-  computed: {}
-};
 </script>
 
 <style lang="less" scoped>
-.wb_img {
-  width: 100%;
-  > ul {
-    width: 16rem;
-    > li {
-      width: 5rem;
-      height: 5rem;
-      overflow: hidden;
-      display: inline-block;
-      margin-left: 0.2rem;
-      box-sizing: border-box;
-      img {
-        max-width: 100%;
-        width: 100%;
-        height: auto;
-        max-width: 100%;
-      }
-    }
-  }
-  .imgWrap {
+  .wb_img {
     width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.98);
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 99999;
-    .imgView {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      > div {
-        position: absolute;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        transition: all 0.1s linear;
-        img {
-          max-width: 100%;
+    >ul {
+      width: 16rem;
+      >li {
+        width: 5rem;
+        height: 5rem;
+        overflow: hidden;
+        display: inline-block;
+        margin-left: 0.2rem;
+        box-sizing: border-box; // 宽大于高时
+        >div {
           width: 100%;
-          height: auto;
-          max-height: 100%;
-          display: inline-block;
+          height: 100%;
         }
-        img[lazy="loading"] {
-          background: url("./loading.gif") center center no-repeat;
-          background-size: 100% 100%;
-          max-width: 100%;
-          width: 100%;
-          height: auto;
-          max-height: 100%;
-          display: inline-block;
-
+        
+        .wide_in_high {
+          display: flex;
+          justify-content: center;
+          >img {
+            width: auto;
+            height: 5rem;
+            max-height: 100%;
+          }
+        } // 高大于宽时
+        .tall_in_wide {
+          >img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+          }
         }
       }
     }
   }
-}
+
 </style>

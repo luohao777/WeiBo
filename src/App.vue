@@ -1,14 +1,15 @@
 <template>
   <div id="app">
       <slide-bar/>
-      <router-view></router-view>      
-      <button @click="test">测试</button> 
-
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+      <button @click="test">测试</button>
   </div>
 </template>
 
 <script>
- 
+
 import slideBar from "@/components/slideBar/slideBar"
 import loginIn from "@/pages/LoginIn/loginIn"
 

@@ -80,7 +80,7 @@ export default {
                 this.showMessageBox = false;
                 this.sendingBol = true;
                 this.successBol = false;
-                this.$router.go(-1)
+                this.$router.replace('/')
               }, 1000);
 
             }
@@ -100,7 +100,7 @@ export default {
       }
     },
     close() {
-      this.$router.go(-1);
+      this.$router.replace('/');
     }
   }
 };

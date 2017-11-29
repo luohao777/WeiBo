@@ -11,9 +11,17 @@ import { InfiniteScroll  } from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import './assets/base.css'
 import './assets/css/iconfont.css'
+import { Swipe, SwipeItem } from 'mint-ui'
+import { Lazyload } from 'mint-ui'
+
+Vue.use(Lazyload);
+
     
+
 Vue.use(VueTouch, {name: 'v-touch'})
 Vue.use(InfiniteScroll)
+Vue.component(Swipe.name, Swipe);
+Vue.component(SwipeItem.name, SwipeItem);
 
 
 Vue.prototype.$http = axios

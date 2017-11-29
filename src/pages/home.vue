@@ -51,7 +51,6 @@ export default {
 .home {
   width: 100%;
   background-color: #efefef;
-  padding-top: 10%;
   background-origin: content-box;
   box-sizing: border-box;
 }

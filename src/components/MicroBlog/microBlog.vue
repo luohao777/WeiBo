@@ -1,17 +1,16 @@
-<template>  
-<div class="wb">    
+<template>
+<div class="wb">
     <div class=" wb_wrap" v-for="(item,index) in wbList" :key="index">
       <!-- 主微博文本内容 -->
       <div class="wb_text" >{{item.text}}</div>
       <!-- 主微博图片 -->
-      <pictures v-if="item.pic_urls" :imgs="item.pic_urls" :singlePicture="item.thumbnail_pic" />
-      
+      <pictures v-if="item.pic_urls.length!==0" :imgs="item.pic_urls" :singlePicture="item.thumbnail_pic" />
       <!-- 转发 -->
       <div class="wb_transpond" v-if="item.retweeted_status">
         <!-- 转发内容 -->
         <p class="wb_text">{{item.retweeted_status.text}}</p>
         <!-- 转发图片 -->
-        <pictures v-if="item.retweeted_status.pic_urls" :imgs="item.retweeted_status.pic_urls" :singlePicture="item.retweeted_status.thumbnail_pic" />
+        <pictures v-if="item.retweeted_status.pic_urls.length!==0" :imgs="item.retweeted_status.pic_urls" :singlePicture="item.retweeted_status.thumbnail_pic" />
         <!-- 被转发的用户信息 -->
         <div class="wb_transpondInfo">
           <i class="iconfont icon-zhuanfa01"></i>
@@ -41,8 +40,8 @@
           </i>
           <span>{{item.attitudes_count}}</span>
         </div>
-
-        <router-link :to="URL(item.id)" >
+        <!-- 跳转到评论 -->
+          <router-link :to="URL(item.id)" >
           <i class="iconfont icon-pinglun"></i>
           <span>{{item.comments_count}}</span>
         </router-link>
@@ -59,15 +58,15 @@
 
 <script>
 
-import pictures from "../Pictures/pictures";
-import { time } from "@/utils/time-utils";
+import pictures from '../Pictures/pictures'
+import { time } from'@/utils/time-utils'
 import { exportShort } from '@/api/request/get_info'
 
 
 export default {
     props: {
     wbList: Array
-  },  
+  },
   components: {
     pictures
   },
@@ -87,9 +86,10 @@ export default {
 .wb {
   width: 100%;
   background-color: #efefef;
-  padding-top: 12%;
   background-origin: content-box;
   box-sizing: border-box;
+  position: absolute;
+  top: 9%;
   .wb_wrap {
     position: relative;
     max-width: 765px;

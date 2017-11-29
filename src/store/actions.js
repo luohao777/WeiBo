@@ -79,11 +79,13 @@ export default {
             if (err) {
                 console.error(err.message)
             } else {
-                console.log(data)
                 commit("ADD_COMMENTS",data.data)
             }       
         })
     },
+      addImgs ({ commit }, obj) {
+      commit('ADD_IMGS', obj)
+    }
     
 }
 

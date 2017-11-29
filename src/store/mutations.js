@@ -9,7 +9,6 @@ export default {
     state.showSlideBar = !state.showSlideBar
   },
   CLOSE_SLIDE_BAR (state) {
-      console.log(1)
     state.showSlideBar = false
   },
   CHANGE_SHOW_LOGING_IN_BOL(state) {
@@ -35,7 +34,15 @@ export default {
     state.comments = data
   },
   GET_PERSON_INFO (state,data){
-    console.log(data)
     state.userInfo = data
+  },
+  ADD_IMGS (state, data) {
+    state.showImgArr = data.imgs
+    state.nowIndex = data.index
+  },
+  CLEAR_IMGS_DATA (state) {
+    state.showImgArr = []
+    state.nowIndex = 0
+
   }
 }
