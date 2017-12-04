@@ -57,8 +57,9 @@
 	</div>
 
     <!-- 发表评论 -->
-    <div class="reply">
-
+    <div class="reply clearfix">
+      <mt-field  placeholder="说两句吧." v-model="replytext"></mt-field>
+        <mt-button type="primary" @click="reply">评论</mt-button>
     </div>
 
 	<!-- 所有评论 -->
@@ -78,12 +79,11 @@
 		  </div>
 		</div>
 		<p class="wb_text"> 
-		  {{item.text}}
 		</p>
 	  </div>
 	</div>
     <div v-else  class="comments-wrap">
-        还没有评论，抢个沙发吧
+      <p>还没有评论，抢个沙发吧</p>
     </div>
   </div>
 </template>
@@ -92,6 +92,7 @@
 import { time } from "@/utils/time-utils"
 import pictures from "@/components/Pictures/pictures"
 import titleBar from "@/components/TitleBar"
+import { send_comment } from "@/api/request/send_post";
 
 export default {
   created() {
@@ -105,7 +106,8 @@ export default {
   },
   data() {
 	return {
-	  originalWb: {}
+    originalWb: {},
+    replytext: ''
 	};
   },
   methods: {
@@ -118,8 +120,23 @@ export default {
 	  return this.$store.state.comments;
 	},
 	wb() {
+    console.log(this.originalWb)
 	  return this.originalWb;
-	}
+  },
+  reply () {
+    let status = {
+      text: this.replytext,
+      id: this.originalWb.id
+    }
+    send_comment(
+      status, (res)=>{
+        console('发送成功',res)
+        
+      },(err) => {
+        console.log('发送失败',err)
+      }
+    )
+  }
   },
   components: {
 	pictures,
@@ -188,7 +205,10 @@ export default {
 	}
   }
 }
-
+.reply{
+  width: 100%;
+  position: relative;
+}
 .wb_wrap {
   position: relative;
   max-width: 765px;

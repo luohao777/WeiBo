@@ -20,8 +20,6 @@ export default {
   // 是否登录
     isLoginIn:false,
    // 测试时为true，并在./api/config中预设token
-    testModel : true,
-    
-    
-    
+    testModel : false
+   
 }

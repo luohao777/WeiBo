@@ -16,7 +16,7 @@ export const share = (status, okCallback, errorCallback) => {
             errorCallback(error)
         })
 }
-const send_comment = (status, okCallback, errorCallback) => {
+export const send_comment = (status, okCallback, errorCallback) => {
     // 评论一条微博
     let url = HOST_CONFIG.sendHost + "method=send_comment" + "&text=" + encodeURI(status.text) + "&id=" + status.id
     axios.get(url)

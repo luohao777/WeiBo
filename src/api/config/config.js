@@ -14,7 +14,12 @@ const users = [
         name: "user2",
         uid: 5186763711,
         access_token: "2.00NLIBfFwpWKLBba2f9ce12f6yPCUD"
-    }
+    },
+    {
+        name: "user3",
+        uid: 5995466020,
+        access_token: "2.00zoS6OD0NxPiUc21f3e42b2fDivND"
+    },
 ]
 
 const host_config = {

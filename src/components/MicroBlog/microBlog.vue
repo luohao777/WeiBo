@@ -88,8 +88,8 @@ export default {
   background-color: #efefef;
   background-origin: content-box;
   box-sizing: border-box;
-  position: absolute;
-  top: 9%;
+  // position: absolute;
+  // top: 9%;
   .wb_wrap {
     position: relative;
     max-width: 765px;

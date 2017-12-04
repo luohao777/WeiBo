@@ -7,21 +7,27 @@ import router from './router'
 import axios from 'axios'
 import store from './store'
 import VueTouch from 'vue-touch'
-import { InfiniteScroll  } from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import './assets/base.css'
 import './assets/css/iconfont.css'
+import { InfiniteScroll  } from 'mint-ui'
 import { Swipe, SwipeItem } from 'mint-ui'
 import { Lazyload } from 'mint-ui'
+import { Field } from 'mint-ui'
+import { Button } from 'mint-ui'
 
-Vue.use(Lazyload);
+Vue.component(Button.name, Button)
 
-    
 
+
+
+
+Vue.use(Lazyload)    
 Vue.use(VueTouch, {name: 'v-touch'})
 Vue.use(InfiniteScroll)
-Vue.component(Swipe.name, Swipe);
-Vue.component(SwipeItem.name, SwipeItem);
+Vue.component(Swipe.name, Swipe)
+Vue.component(SwipeItem.name, SwipeItem)
+Vue.component(Field.name, Field)
 
 
 Vue.prototype.$http = axios

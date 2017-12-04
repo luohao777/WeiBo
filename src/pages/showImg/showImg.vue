@@ -16,7 +16,8 @@
         let arr = this.$store.state.showImgArr
         let index = this.$store.state.nowIndex
         this._loading(arr,index,newArr =>{
-          this.imgArr = newArr
+        },imgObj=>{
+          this.imgArr.push(imgObj)
         })
 
     },
@@ -42,7 +43,7 @@
         this.$store.commit('CLEAR_IMGS_DATA')
         this.$router.go(-1)
       },
-      _loading(arr,index=0,callback) {
+      _loading(arr,index=0,callback,progress) {
         let loadedObj = []
         let num = 0
         let len = arr.length
@@ -52,9 +53,10 @@
           imgObj.onload = function () {
             loadedObj.push(this)
             num++
-            console.log(num)
+            if (progress) {
+              progress(imgObj)
+            }
             if(num >= len) {
-              console.log('加载完成了')
               if(callback) {
                 callback(loadedObj)
               }
@@ -75,24 +77,22 @@
     position: relative;
 
     .mint-swipe-item {
-      // .img-wrap {
-      //   width: 100%;
-      //   height: 100%;
-      //   display: flex;
-      //   justify-content: center;
-      //   align-content: center;
-      //   img{
-      //     max-width: 100%;
-      //     width: 100%;
-      //     height: auto;
-      //   }
-      // }
+      >div{
+                display: flex;
+        justify-content: center;
+        align-content: center;
+
+        > img {
+          width: 100%;
+          max-width: 100%;
+          height: auto;
+        }
+      }
       .wide_in_high {
         display: flex;
         justify-content: center;
         >img {
           width: auto;
-          height: 5rem;
           max-height: 100%;
         }
       } // 高大于宽时

@@ -13,20 +13,19 @@
 <script>
   export default {
     props: ["imgs"],
-      beforeRouteLeave: (to, from, next) => {
-      // ...
-      console.log("%c%s", "color:red","store : " + this.$store.state.showImgArr); //undefined 
-      
-    },
     created() {
       let arr = this.imgs
+    
       for (let item of arr) {
-        let imgObj = new Image()
         let newUrl = this._changeImgUrl(item.thumbnail_pic)
-        imgObj.src = item.thumbnail_pic
-        this.imgArr.push(imgObj)
         this.urlArr.push(newUrl)
       }
+
+      this._loading(this.urlArr, 0, ()=>{}, obj => {
+        this.imgArr.push(obj)
+      })
+
+
     },
     data() {
       return {
@@ -35,37 +34,38 @@
       }
     },
     methods: {
-      // 左滑移动
-      onSwipeLeft() {
-        let post = this.$refs.myBox.$el.getBoundingClientRect();
-        if (post.x > -((this.largeImg.length - 1) * this.x)) {
-          this.objLeft.left = post.x - this.x + "px"
-        }
-      },
-      // 右滑移动
-      onSwipeRight() {
-        console.log(1)
-        let post = this.$refs.myBox.$el.getBoundingClientRect();
-        if (post.x < 0) {
-          this.objLeft.left = post.x + this.x + "px"
-        }
-      },
       _changeImgUrl(url) {
         let reg = /thumbnail/gi;
         return url.replace(reg, "bmiddle");
       },
       toShowImg(index) {
-        
         this.$store.commit('ADD_IMGS', {
           'imgs': this.urlArr,
           'index': index
         })
         this.$router.push('/showImg')
+      },
+       _loading(arr,index=0,callback,progress) {
+        let loadedObj = []
+        let num = 0
+        let len = arr.length
+        for(let item of arr) {
+          let imgObj = new Image()
+          imgObj.src = item
+          imgObj.onload = function () {
+            loadedObj.push(this)
+            num++
+            if (progress) {
+              progress(imgObj)
+            }
+            if(num >= len) {
+              if(callback) {
+                callback(loadedObj)
+              }
+            }
+          }
+        }
       }
-    },
-    beforeRouteLeave: (to, from, next) => {
-      console.log(this.$store.state)
-      
     }
   }
 

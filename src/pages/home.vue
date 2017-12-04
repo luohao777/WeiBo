@@ -1,8 +1,8 @@
 <template>
 <!-- 测试模式下注释此行 -->
-  <!-- <div class="home" v-if="homeTimelineData" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10"> -->
+  <div class="home" v-if="homeTimelineData" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
       <!-- 测试模式下注释此行-->
-  <div class="home" v-if="homeTimelineData">
+  <!-- <div class="home" v-if="homeTimelineData"> -->
     <top-bar/>
     <micro-blog :wbList="list"/>
     <div class="loading" v-if="loading">
@@ -53,6 +53,7 @@ export default {
   background-color: #efefef;
   background-origin: content-box;
   box-sizing: border-box;
+  padding: 12%;
 }
 
 .home::-webkit-scrollbar {

@@ -2,7 +2,6 @@ import http from 'axios'
 import * as api from '@/api/config/config'
 import jsonp from 'jsonp'
 import * as getInfo from '../api/request/get_info'
-
 export default {
     // 获取 请求token 的URL
     getTokenUrl ({ commit }) {
@@ -15,7 +14,7 @@ export default {
     getUserInfo ({ commit ,state }) {
         let user,url,param
         if(state.testModel){
-            user = api.USERS[1]
+            user = api.USERS[2]
         } else {
             user = state.loginInfo
         }
@@ -36,7 +35,7 @@ export default {
         if (!url){
             alert("网络错误，请重试")
         } else {
-            window.location.replace = url            
+            window.location.href	 = url            
         }
     },
     // 获取主页时间线, 将数据并入store中timeLine
@@ -44,7 +43,7 @@ export default {
         let user, url,param
         if (state.testModel) {
             // 测试模式下使用
-            user = api.USERS[1]
+            user = api.USERS[2]
         } else {
             user = state.loginInfo
         }
@@ -69,7 +68,7 @@ export default {
         let user, url
         if (state.testModel) {
             // 测试模式下使用
-            user = api.USERS[0]
+            user = api.USERS[2]
         } else {
             user = state.loginInfo
         }
@@ -86,6 +85,5 @@ export default {
       addImgs ({ commit }, obj) {
       commit('ADD_IMGS', obj)
     }
-    
 }
 

@@ -1,10 +1,8 @@
 <template>
   <div id="app">
       <slide-bar/>
-      <keep-alive>
         <router-view></router-view>
-      </keep-alive>
-      <button @click="test">测试</button>
+      <!-- <button id='test' @click="test">测试</button> -->
   </div>
 </template>
 
@@ -17,7 +15,7 @@ export default {
   created() {
     if (!this.$store.state.testModel) {
       // 获取请求token的url
-      this.$store.dispatch("getTokenUrl");
+      this.$store.dispatch("getTokenUrl")
       //解析cookie
       function readCookie(name) {
         name += "=";
@@ -41,7 +39,7 @@ export default {
           let arr1 = item.split(reg);
           info[arr1[0]] = arr1[1];
         }
-      }vuePushyButtons
+      }
       // 添加到登录信息到vuex
       this.$store.commit("ADD_LOGIN_INFO", info);
 
@@ -88,7 +86,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
 }
-button {
+#test {
   position: fixed;
   right: 1rem;
   bottom: 1rem;
